@@ -1,19 +1,18 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { useCreateUserProfileMutation } from '../../../services/userProfile/userProfile';
+import { useSelector, useDispatch } from 'react-redux';
 import Form from '../../../components/common/Form/Form';
 import Input from '../../../components/common/Input/Input';
 import Button from '../../../components/common/Button/Button';
-
+import { createUserProfile } from '../../../reducers/userProfileSlice';
+import { useNavigate } from 'react-router-dom';
 const CreateProfile = () => {
-	const navigate = useNavigate();
 	const user = useSelector((state) => state.user);
-	console.log(user);
-	const [createUserProfile, { isLoading }] = useCreateUserProfileMutation();
+	const navigate = useNavigate();
+	const { isLoading } = useSelector((state) => state.userProfile);
+	const dispatch = useDispatch();
 
 	const [profile, setProfile] = useState({
-		email: "",
+		email: user?.email || "",
 		firstName: "",
 		lastName: "", 
 		age: "", 
@@ -29,18 +28,11 @@ const CreateProfile = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		
 		try {
-			await createUserProfile({
-				uid: user.uid,
-				...profile
-			}).unwrap();
-			
-			// Navigate to home page after successful profile creation
+			await dispatch(createUserProfile(profile)).unwrap();
 			navigate('/');
 		} catch (error) {
-			console.error('Failed to create profile:', error);
-			// Handle error (show error message to user)
+			console.error('Error updating profile:', error);
 		}
 	};
 
@@ -98,13 +90,13 @@ const CreateProfile = () => {
 
 				<div className='flex flex-col space-y-1'>
 					<label htmlFor="activityLevel" className='text-sm font-medium text-gray-700'>Activity Level</label>
-					<select 
-						name="activityLevel" 
-						id="activityLevel" 
-						onChange={handleChange}
-						className='px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-						required
+					<select
+						id="activityLevel"
+						name="activityLevel"
 						value={profile.activityLevel}
+						onChange={handleChange}
+						className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+						required
 					>
 						<option value="">Select an activity level</option>
 						<option value="sedentary">Sedentary</option>
@@ -113,12 +105,8 @@ const CreateProfile = () => {
 					</select>
 				</div>
 
-				<Button 
-					type="submit" 
-					variant="primary"
-					disabled={isLoading}
-				>
-					{isLoading ? 'Creating...' : 'Submit'}
+				<Button type="submit" disabled={isLoading}>
+					{isLoading ? 'Creating Profile...' : 'Create Profile'}
 				</Button>
 			</div>
 		</Form>
