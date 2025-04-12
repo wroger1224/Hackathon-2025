@@ -32,7 +32,6 @@ const SignInForm = () => {
 		try {
 			await signInWithEmailPassword(email, password);
 			resetForm();
-			//navigate home
 			navigate("/");
 		}catch(error){
 			switch(error.code){

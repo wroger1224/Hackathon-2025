@@ -5,7 +5,7 @@ import Button from '../../common/Button/Button';
 import { createUser } from '../../../services/Firebase/firebaseService';
 import { useNavigate } from 'react-router';
 
-function SignUpForm () {
+const SignUpForm = () => {
 	const [formFields, setFormFields] = useState({
 		email: "",
 		password: "",
