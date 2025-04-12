@@ -9,7 +9,7 @@
 }
 
 body {
-  background-color: #38B1F6;
+  background-color: #38b1f6;
   color: black;
 }
 
@@ -87,4 +87,23 @@ p {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Brand Assets */
+.logo {
+  background-image: url("../assets/logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 200px; /* Adjust based on your logo size */
+  height: 100px; /* Adjust based on your logo size */
+}
+
+.logo-small {
+  background-image: url("../assets/logo-small.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100px;
+  height: 50px;
 }
