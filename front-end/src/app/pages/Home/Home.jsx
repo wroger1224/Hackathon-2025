@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import TeamActivity from "../../../components/feature/TeamActivity/TeamActivity";
 import "../../../index.css";
 
 const Home = () => {
@@ -8,7 +9,9 @@ const Home = () => {
 	console.log(profile);
 
 	return (
-		<h1>Home</h1>
+		<>
+			<TeamActivity />
+		</>
 	)
 }
 
