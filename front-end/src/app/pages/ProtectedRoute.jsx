@@ -1,10 +1,13 @@
 import { Navigate, Outlet } from "react-router";
+import { UserContext } from "../../contexts/UserContext";
+import { useContext } from "react";
 
-const ProtectedRoute = ({
-	authenticated = true,
-}) => {
-	//redux or context?
-	if(!authenticated){
+const ProtectedRoute = () => {
+	const { currentUser, loading } = useContext(UserContext);
+
+	if(loading) return null;
+	
+	if(!currentUser){
 		return <Navigate to="/auth" />
 	}
 

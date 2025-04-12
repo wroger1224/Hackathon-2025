@@ -1,7 +1,7 @@
 import Home from './pages/Home/Home';
 import Auth from './pages/Auth/Auth';
 import ProtectedRoute from './pages/ProtectedRoute';
-import Layout from './components/Layout/Layout';
+import Layout from '../components/common/Layout/Layout';
 
 import { createBrowserRouter } from 'react-router'
 
