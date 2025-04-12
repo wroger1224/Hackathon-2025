@@ -1,0 +1,9 @@
+# All node_modules
+node_modules/
+
+# All logs
+logs/
+
+# /back-end/ firebase.json
+back-end/firebase.json
+
