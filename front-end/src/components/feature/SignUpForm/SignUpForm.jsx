@@ -36,8 +36,7 @@ const SignUpForm = () => {
 		}
 
 		try {
-			const user = await createUser(email, password);
-			dispatch(setUser(user));
+			await createUser(email, password);
 			resetForm();
 			navigate("/");
 		}catch (error){
