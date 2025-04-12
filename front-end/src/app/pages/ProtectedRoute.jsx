@@ -1,13 +1,12 @@
 import { Navigate, Outlet } from "react-router";
-import { UserContext } from "../../contexts/UserContext";
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 
 const ProtectedRoute = () => {
-	const { currentUser, loading } = useContext(UserContext);
+	const { user, loading } = useSelector((state) => state.user);
 
 	if(loading) return null;
 	
-	if(!currentUser){
+	if(!user){
 		return <Navigate to="/auth" />
 	}
 

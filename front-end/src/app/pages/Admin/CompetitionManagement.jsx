@@ -1,11 +1,9 @@
 import { useParams } from 'react-router-dom';
-import { useContext, useState } from 'react';
-import { UserContext } from '../../../contexts/UserContext';
 import { mockCompetitions, mockUsers } from '../../../data/mockData';
-
+import { useSelector } from 'react-redux';
 const CompetitionManagement = () => {
     const { competitionId } = useParams();
-    const { currentUser } = useContext(UserContext);
+    const { user } = useSelector((state) => state.user);
     const [competition, setCompetition] = useState(
         mockCompetitions.find(comp => comp.id === parseInt(competitionId))
     );
@@ -141,7 +139,7 @@ const CompetitionManagement = () => {
                     </button>
                 )}
             </div>
-            <p className="mb-4">Welcome, {currentUser?.email}</p>
+            <p className="mb-4">Welcome, {user?.email}</p>
             
             <div className="space-y-8">
                 {isEditing ? (
