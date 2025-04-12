@@ -175,12 +175,15 @@ const Milestones = () => {
 	}
 
 	return (
-		<div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-white rounded-lg shadow-lg p-4 w-[600px]">
-			<div className="flex items-center gap-4">
-				{progressData && (
+		<>
+			{progressData && (
+				<div className="space-y-3">
 					<div className="flex-1">
 						<div className="flex items-center justify-between mb-2">
-							<h3 className="text-sm font-semibold text-gray-700">Milestone Progress</h3>
+							<div className="flex items-center gap-2">
+								<h3 className="text-sm font-semibold text-gray-700">Milestone {progressData.nextMilestone.MilestoneID}</h3>
+								<span className="text-xs text-gray-500">({progressData.nextMilestone.MilestoneTime}m goal)</span>
+							</div>
 							<span className="text-xs text-gray-500">{progressData.progress.toFixed(1)}%</span>
 						</div>
 						<div className="w-full bg-gray-200 rounded-full h-2">
@@ -194,27 +197,27 @@ const Milestones = () => {
 							<span>{progressData.minutesRemaining}m left</span>
 						</div>
 					</div>
-				)}
 
-				<div className="flex items-center gap-2">
-					{completedMilestones.map((milestone) => (
-						<div 
-							key={milestone.UserMilestoneID}
-							className="relative w-8 h-8 rounded-full overflow-hidden flex-shrink-0"
-						>
-							<img 
-								src={getMilestoneImage(milestone.MilestoneID)} 
-								alt={`Milestone ${milestone.MilestoneID}`}
-								className="w-full h-full object-cover"
-							/>
-							<div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-								<span className="text-white text-xs">✓</span>
+					<div className="flex items-center justify-center gap-2">
+						{completedMilestones.map((milestone) => (
+							<div 
+								key={milestone.UserMilestoneID}
+								className="relative w-8 h-8 rounded-full overflow-hidden flex-shrink-0"
+							>
+								<img 
+									src={getMilestoneImage(milestone.MilestoneID)} 
+									alt={`Milestone ${milestone.MilestoneID}`}
+									className="w-full h-full object-cover"
+								/>
+								<div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+									<span className="text-white text-xs">✓</span>
+								</div>
 							</div>
-						</div>
-					))}
+						))}
+					</div>
 				</div>
-			</div>
-		</div>
+			)}
+		</>
 	)
 }
 

@@ -35,9 +35,6 @@ const Header = () => {
         <Link to="#" className="text-black hover:text-red-orange">
           Team
         </Link>
-				<Link to="/leaderboard" className="text-black hover:text-red-orange">
-					Leaderboard
-				</Link>
       </nav>
       <div
         

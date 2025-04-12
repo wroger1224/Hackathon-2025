@@ -1,19 +1,15 @@
 import { useSelector } from 'react-redux';
 
-const TeamActivity = () => {
-	const team = [
+const Leaderboard = () => {
+	const teams = [
 		{
-			name: "Joe Shmoe",
-			totalMinutes: 100,
+			name: "Team 1",
+			totalMinutes: 100,		
 		},
 		{
-			name: "Sally Shmoe",
-			totalMinutes: 90,
-		},
-		{
-			name: "John Shmoe",
-			totalMinutes: 80,
-		},
+			name: "Team 2",
+			totalMinutes: 90
+		}
 	]
 
 	return (
@@ -24,7 +20,7 @@ const TeamActivity = () => {
 						Rank
 					</th>
 					<th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-						Name
+						Team Name
 					</th>
 					<th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
 						Total Minutes
@@ -32,9 +28,9 @@ const TeamActivity = () => {
 				</tr>
 			</thead>
 			<tbody className="divide-y">
-				{team.map((member, index) => (
+				{teams.map((team, index) => (
 					<tr 
-						key={member.name}
+						key={team.name}
 						className="hover:bg-gray-50"
 					>
 						<td className="px-6 py-4 whitespace-nowrap">
@@ -45,10 +41,10 @@ const TeamActivity = () => {
 							</div>
 						</td>
 						<td className="px-6 py-4 whitespace-nowrap">
-							<div className="text-sm font-medium">{member.name}</div>
+							<div className="text-sm font-medium">{team.name}</div>
 						</td>
 						<td className="px-6 py-4 whitespace-nowrap">
-							<div className="text-sm">{member.totalMinutes}</div>
+							<div className="text-sm">{team.totalMinutes}</div>
 						</td>
 					</tr>
 				))}
@@ -57,4 +53,4 @@ const TeamActivity = () => {
 	);
 };
 
-export default TeamActivity;
+export default Leaderboard;
