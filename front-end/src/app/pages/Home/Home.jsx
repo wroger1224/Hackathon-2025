@@ -43,7 +43,7 @@ const Home = () => {
         </Widget>
 
         <Widget>
-          <h3 className="text-xl font-semibold mb-4">Widget 4</h3>
+          <h3 className="text-xl font-semibold mb-4">Badges</h3>
           <p>Content goes here</p>
         </Widget>
       </div>
