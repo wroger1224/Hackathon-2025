@@ -21,10 +21,11 @@ CREATE TABLE Permissions (
 CREATE TABLE Team (
     TeamID INTEGER PRIMARY KEY,
     TeamName TEXT NOT NULL,
-    TeamCaptain TEXT NOT NULL,
+    TeamCaptainID INTEGER NOT NULL,
     CompetitionID INTEGER,
     Points INTEGER DEFAULT 0,
     Rank INTEGER,
+    FOREIGN KEY (TeamCaptainID) REFERENCES User(UserID) ON DELETE CASCADE,
     FOREIGN KEY (CompetitionID) REFERENCES Competitions(CompetitionID) ON DELETE SET NULL
 );
 
@@ -93,6 +94,7 @@ CREATE TABLE UserActivity (
 
 -- Add indexes for performance
 CREATE INDEX idx_team_competition ON Team(CompetitionID);
+CREATE INDEX idx_team_captain ON Team(TeamCaptainID);
 CREATE INDEX idx_user_team ON User(CurrentTeamID);
 CREATE INDEX idx_user_role ON User(RoleID);
 CREATE INDEX idx_milestones_competition ON Milestones(CompetitionID);
