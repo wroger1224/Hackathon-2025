@@ -1,31 +1,81 @@
 @import "tailwindcss";
+
+:root {
+  --red-orange: #ff5c4d;
+  --orange: #ff9636;
+  --mimosa: #ffcd58;
+  --chartreuse: #dad870;
+  --blue: #38b1f6;
+}
+
 body {
-  background-color: #38B1F6;
+  background-color: var(--blue);
   color: white;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Barabara", sans-serif;
+  font-weight: 600;
 }
 
 h1 {
   font-size: 2rem;
-  font-weight: 600;
-  font-family: 'Barabara', sans-serif;
+  color: var(--red-orange);
 }
 
 h2 {
   font-size: 1.5rem;
-  font-weight: 600;
-  font-family: 'Barabara', sans-serif;
-} 
+  color: var(--orange);
+}
 
 h3 {
   font-size: 1.2rem;
-  font-weight: 600;
-  font-family: 'Barabara', sans-serif;
-} 
+  color: var(--mimosa);
+}
 
 p {
   font-size: 1rem;
   font-weight: 400;
-  font-family: 'ITC Bauhaus', sans-serif;
+  font-family: "ITC Bauhaus", sans-serif;
+  color: white;
+}
+
+/* Utility classes for colors */
+.text-red-orange {
+  color: var(--red-orange);
+}
+.text-orange {
+  color: var(--orange);
+}
+.text-mimosa {
+  color: var(--mimosa);
+}
+.text-chartreuse {
+  color: var(--chartreuse);
+}
+.text-blue {
+  color: var(--blue);
+}
+
+.bg-red-orange {
+  background-color: var(--red-orange);
+}
+.bg-orange {
+  background-color: var(--orange);
+}
+.bg-mimosa {
+  background-color: var(--mimosa);
+}
+.bg-chartreuse {
+  background-color: var(--chartreuse);
+}
+.bg-blue {
+  background-color: var(--blue);
 }
 
 :root {
@@ -38,4 +88,3 @@ p {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
