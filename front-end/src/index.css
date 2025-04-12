@@ -154,9 +154,29 @@ p {
 }
 
 /* Auth Page */
+main {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 #auth-container {
   background-color: var(--blue);
+}
+
+#auth-logo {
+  justify-content: center;
+  width: 300px;
+}
+
+#sign-in-container {
+  width: 500px;
+}
+
+#sign-up-container {
+  width: 500px;
 }
 
 /* Header */

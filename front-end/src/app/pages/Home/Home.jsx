@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div>
       <h1>Home</h1>
-      <h2>Welcome to the Home Page</h2>
+      <h2>Welcome to Maxxtivity</h2>
       <h3>
         Here you can see your progress and your current level. You can also
         see your current competition and your progress in it.
