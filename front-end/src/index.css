@@ -90,20 +90,42 @@ p {
 }
 
 /* Brand Assets */
-.logo {
-  background-image: url("../assets/logo.png");
+.primary-logo-white, .primary-logo-black, .primary-logo, .primary-logo-small, .secondary-logo, .secondary-logo-small {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: 200px; /* Adjust based on your logo size */
-  height: 100px; /* Adjust based on your logo size */
 }
 
-.logo-small {
-  background-image: url("../assets/logo-small.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+.primary-logo, .primary-logo-small {
+  background-image: url("../assets/0-Primary-Logo.png");
+}
+
+.primary-logo-white, .primary-logo-white-small {
+  background-image: url("../assets/0-Primary-Logo-White.png");
+}
+
+.secondary-logo, .secondary-logo-small {
+  background-image: url("../assets/2-Secondary-Logo.png");
+}
+
+.logo-black, .logo-black-small {
+  background-image: url("../assets/3-Logo-Black.png");
+}
+
+.logo-white, .logo-white-small {
+  background-image: url("../assets/3-Logo-White.png");
+}
+
+.logo-color, .logo-color-small {
+  background-image: url("../assets/3-Logo-Color.png");
+}
+
+.primary-logo-white, .primary-logo, .logo-black, .secondary-logo, .logo-color, .logo-white {
+  width: 200px;
+  height: 100px;
+} 
+
+.primary-logo-white-small, .primary-logo-small, .logo-black-small, .secondary-logo-small, .logo-color-small, .logo-white-small {
   width: 100px;
   height: 50px;
 }
