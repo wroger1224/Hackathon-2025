@@ -4,6 +4,30 @@ body {
   color: black;
 }
 
+h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  font-family: 'Barabara', sans-serif;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: 'Barabara', sans-serif;
+} 
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-family: 'Barabara', sans-serif;
+} 
+
+p {
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: 'ITC Bauhaus', sans-serif;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

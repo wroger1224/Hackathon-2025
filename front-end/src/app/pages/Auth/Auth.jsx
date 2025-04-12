@@ -1,5 +1,6 @@
 import SignInForm from "../../../components/feature/SignInForm/SignInForm";
 import SignUpForm from "../../../components/feature/SignUpForm/SignUpForm";
+import './index.css'
 
 const Auth = () => {
 	return (

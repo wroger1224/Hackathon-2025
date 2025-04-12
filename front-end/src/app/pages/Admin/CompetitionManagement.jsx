@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { mockCompetitions, mockUsers } from '../../../data/mockData';
+import './index.css'
 import { useSelector } from 'react-redux';
 const CompetitionManagement = () => {
     const { competitionId } = useParams();
