@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const OpenAI = require('openai');
+const createDatabase = require('./db');
 
 // Load environment variables
 dotenv.config();
@@ -15,6 +16,9 @@ const openai = new OpenAI({
 
 // Initialize Express app
 const app = express();
+
+// Initialize database and attach to app
+app.db = createDatabase();
 
 // Middleware
 app.use(helmet()); // Security headers
