@@ -3,7 +3,9 @@ import { useState } from 'react';
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 import { createUser } from '../../../services/Firebase/firebaseService';
-import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser, setSignUpError } from '../../../reducers/userSlice';
+
 
 const SignUpForm = () => {
 	const [formFields, setFormFields] = useState({
@@ -11,8 +13,8 @@ const SignUpForm = () => {
 		password: "",
 		confirmPassword: ""
 	});
-	const [error, setError] = useState('');
-	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const { signUpError } = useSelector((state) => state.user);	
 	const { 
 		email, 
 		password, 
@@ -29,34 +31,23 @@ const SignUpForm = () => {
 		event.preventDefault();
 
 		if(password !== confirmPassword) {
-			setError('Passwords do not match.');
+			dispatch(setSignUpError('Passwords do not match.'));
 			return;
 		}
 
 		try {
-			await createUser(email, password);
+			const user = await createUser(email, password);
+			dispatch(setUser(user));
 			resetForm();
-			//navigate home
 			navigate("/");
 		}catch (error){
-			switch(error.code){
-				case 'auth/email-already-in-use':
-					setError('The provided email is already in use by an existing user.');
-					break;
-				case 'auth/invalid-email':
-					setError('The provided value for the email is invalid.');
-					break;
-				case 'auth/weak-password':
-					setError('Your password must be at least six characters.');
-					break;
-				default:
-					console.log(error);
-			}
+			dispatch(setSignUpError(error.message));
 		}
 	}
 
 	function resetForm() {
 		setFormFields({ email: "", password: "", confirmPassword: "" });
+		dispatch(setSignUpError(''));
 	}
 
 	return (
@@ -95,7 +86,7 @@ const SignUpForm = () => {
 			<Button type='submit' variant='primary'>Sign Up</Button>
 
 			{
-				error && <p className='text-red-600 text-center mt-2'>{ error }</p>
+				signUpError && <p className='text-red-600 text-center mt-2'>{ signUpError }</p>
 			}
 		</Form>
 	)

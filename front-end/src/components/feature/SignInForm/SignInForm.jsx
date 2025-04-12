@@ -5,6 +5,8 @@ import { signInWithEmailPassword } from "../../../services/Firebase/firebaseServ
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import Button from "../../common/Button/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser, setSignInError } from "../../../reducers/userSlice";
 
 const defaultFormFields = {
 	email: "",
@@ -13,13 +15,13 @@ const defaultFormFields = {
 
 const SignInForm = () => {
 	const [formFields, setFormFields] = useState(defaultFormFields);
-	const [error, setError] = useState('');
 	const navigate = useNavigate();
 	const { 
 		email, 
 		password 
 	} = formFields;
-	
+	const dispatch = useDispatch();
+	const { signInError } = useSelector((state) => state.user);
 
 	function handleChange (event) {
 		const { name, value } = event.target;
@@ -30,35 +32,28 @@ const SignInForm = () => {
 		event.preventDefault();
 
 		try {
-			await signInWithEmailPassword(email, password);
+			const user = await signInWithEmailPassword(email, password);
+			dispatch(setUser(user));
 			resetForm();
 			navigate("/");
 		}catch(error){
-			switch(error.code){
-				case 'auth/invalid-credential':
-					setError('Incorrect Username or Password');
-					break;
-				case 'auth/too-many-requests':
-					setError('Access to this account has been temporarily disabled due to many failed login attempts');
-					break;
-				default:
-					console.log(error);
-			}
+			dispatch(setSignInError(error.message));
 		}
 	}
 
 	function resetForm() {
 		setFormFields({ email: "", password: "" });
-		setError('');
+		dispatch(setSignInError(''));
 	}
 
 	async function signInWithGoogle() {
 		try {
-			await signInWithGooglePopup();
+			const {user} = await signInWithGooglePopup();
+			dispatch(setUser(user));
 			resetForm();
 			navigate("/");
 		}catch(error){
-			console.log(error);
+			dispatch(setSignInError(error.message));
 		}
 	}
 
@@ -91,7 +86,7 @@ const SignInForm = () => {
 					<Button type="button" onClick={signInWithGoogle} variant="secondary">Google Sign In</Button>		
 				</div>
 				{
-					error && <p className='text-red-600 text-center mt-2'>{ error }</p>
+					signInError && <p className='text-red-600 text-center mt-2'>{ signInError }</p>
 				}
 			</Form>
 	)

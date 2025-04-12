@@ -1,11 +1,10 @@
-import { UserContext } from "../../../contexts/UserContext";
-import { useContext, useState } from "react";
+import { useSelector } from "react-redux";
 import { mockUsers, mockCompetitions } from "../../../data/mockData";
 import { Link } from "react-router-dom";
-import './index.css'
+import "../../../index.css"
 
 const Admin = () => {
-    const { currentUser } = useContext(UserContext);
+    const { user } = useSelector((state) => state.user);
     const [competitions, setCompetitions] = useState(mockCompetitions);
     const [newCompetition, setNewCompetition] = useState({
         name: "",
@@ -36,7 +35,7 @@ const Admin = () => {
     return (
         <div className="p-6">
             <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
-            <p className="mb-4">Welcome, {currentUser?.email}</p>
+            <p className="mb-4">Welcome, {user?.email}</p>
 
             {/* Create Competition Form */}
             <div className="mb-8 p-4 border rounded">
