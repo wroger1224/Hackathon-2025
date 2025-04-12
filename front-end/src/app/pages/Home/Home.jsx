@@ -1,4 +1,3 @@
-import Header from "../../../Header";
 import { useSelector } from "react-redux";
 import "../../../index.css";
 
@@ -8,7 +7,6 @@ const Home = () => {
 
   return (
     <div>
-      <Header />
       <h1>Home</h1>
     </div>
   );

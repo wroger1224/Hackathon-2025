@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { mockCompetitions, mockUsers } from "../../../data/mockData";
 import "../../../index.css";
 import { useSelector } from "react-redux";
-import Header from "../../../Header";
 
 const CompetitionManagement = () => {
   const { competitionId } = useParams();
@@ -137,7 +136,6 @@ const CompetitionManagement = () => {
 
   return (
     <div className="p-6">
-      <Header />
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">
           Manage Competition: {competition.name}
