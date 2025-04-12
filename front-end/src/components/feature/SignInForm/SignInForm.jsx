@@ -32,8 +32,7 @@ const SignInForm = () => {
 		event.preventDefault();
 
 		try {
-			const user = await signInWithEmailPassword(email, password);
-			dispatch(setUser(user));
+			await signInWithEmailPassword(email, password);
 			resetForm();
 			navigate("/");
 		}catch(error){
@@ -43,13 +42,11 @@ const SignInForm = () => {
 
 	function resetForm() {
 		setFormFields({ email: "", password: "" });
-		dispatch(setSignInError(''));
 	}
 
 	async function signInWithGoogle() {
 		try {
-			const {user} = await signInWithGooglePopup();
-			dispatch(setUser(user));
+			await signInWithGooglePopup();
 			resetForm();
 			navigate("/");
 		}catch(error){

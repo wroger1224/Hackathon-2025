@@ -1,9 +1,12 @@
 import router from "./router"
 import { RouterProvider } from "react-router"
+import { AuthStateListener } from "../components/feature/AuthStateListener/AuthStateListener"
 
 function App() {
   return (
-		<RouterProvider router={ router } />
+		<AuthStateListener>
+			<RouterProvider router={ router } />
+		</AuthStateListener>
   )
 }
 
