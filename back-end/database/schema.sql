@@ -45,14 +45,6 @@ CREATE TABLE User (
     FOREIGN KEY (RoleID) REFERENCES Roles(RoleID) ON DELETE SET NULL
 );
 
--- Create Message Table
-CREATE TABLE Message (
-    MessageID INTEGER PRIMARY KEY,
-    Message TEXT NOT NULL,
-    TeamID INTEGER,
-    FOREIGN KEY (TeamID) REFERENCES Team(TeamID) ON DELETE CASCADE
-);
-
 -- Create Competitions Table
 CREATE TABLE Competitions (
     CompetitionID INTEGER PRIMARY KEY,
@@ -69,13 +61,55 @@ CREATE TABLE Milestones (
     CompetitionID INTEGER NOT NULL,
     MilestoneName TEXT NOT NULL,
     Description TEXT,
-    Points INTEGER NOT NULL,
-    DueDate DATE,
-    Status TEXT CHECK (Status IN ('Pending', 'Completed')) DEFAULT 'Pending',
+    TimeThreshold INTEGER NOT NULL, -- in minutes
+    ImagePath TEXT, -- Path or URL to milestone image
     FOREIGN KEY (CompetitionID) REFERENCES Competitions(CompetitionID) ON DELETE CASCADE
 );
 
+-- Create UserMilestones Table
+CREATE TABLE UserMilestones (
+    UserMilestoneID INTEGER PRIMARY KEY,
+    UserID INTEGER NOT NULL,
+    MilestoneID INTEGER NOT NULL,
+    CompletionDate DATE,
+    FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE,
+    FOREIGN KEY (MilestoneID) REFERENCES Milestones(MilestoneID) ON DELETE CASCADE,
+    UNIQUE (UserID, MilestoneID)
+);
+
+-- Create UserActivity Table
+CREATE TABLE UserActivity (
+    UserActivityID INTEGER PRIMARY KEY,
+    UserID INTEGER NOT NULL,
+    CompetitionID INTEGER NOT NULL,
+    UserInput TEXT NOT NULL, -- The activity description submitted by the user
+    TotalTime INTEGER NOT NULL DEFAULT 0, -- in minutes
+    TotalPoints INTEGER NOT NULL DEFAULT 0,
+    LastUpdated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE,
+    FOREIGN KEY (CompetitionID) REFERENCES Competitions(CompetitionID) ON DELETE CASCADE,
+    UNIQUE (UserID, CompetitionID)
+);
+
 -- Add indexes for performance
-CREATE INDEX idx_user_team ON User(TeamID);
+CREATE INDEX idx_team_competition ON Team(CompetitionID);
+CREATE INDEX idx_user_team ON User(CurrentTeamID);
 CREATE INDEX idx_user_role ON User(RoleID);
-CREATE INDEX idx_message_team ON Message(TeamID); 
+CREATE INDEX idx_milestones_competition ON Milestones(CompetitionID);
+CREATE INDEX idx_user_milestones_user ON UserMilestones(UserID);
+CREATE INDEX idx_user_milestones_milestone ON UserMilestones(MilestoneID);
+CREATE INDEX idx_user_activity_user ON UserActivity(UserID);
+CREATE INDEX idx_user_activity_competition ON UserActivity(CompetitionID);
+
+-- Additional performance optimizations
+-- Composite indexes for common join patterns
+CREATE INDEX idx_user_activity_user_competition ON UserActivity(UserID, CompetitionID);
+CREATE INDEX idx_user_milestones_user_milestone ON UserMilestones(UserID, MilestoneID);
+CREATE INDEX idx_team_competition_points ON Team(CompetitionID, Points);
+
+-- Indexes for frequently filtered/sorted columns
+CREATE INDEX idx_competitions_status ON Competitions(Status);
+CREATE INDEX idx_competitions_dates ON Competitions(StartDate, EndDate);
+CREATE INDEX idx_user_activity_totals ON UserActivity(TotalTime, TotalPoints);
+CREATE INDEX idx_milestones_threshold ON Milestones(TimeThreshold);
+CREATE INDEX idx_user_opt_in ON User(OptInForMessages) WHERE OptInForMessages = 1; 
