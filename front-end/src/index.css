@@ -110,27 +110,27 @@ p {
 
 .primary-logo-white,
 .primary-logo-white-small {
-  background-image: url("../assets/0 Primary Logo White.png");
+  background-image: url("../assets/0-Primary-Logo-White.png");
 }
 
 .secondary-logo,
 .secondary-logo-small {
-  background-image: url("../assets/2 Secondary Logo.png");
+  background-image: url("../assets/2-Secondary-Logo.png");
 }
 
 .logo-black,
 .logo-black-small {
-  background-image: url("../assets/3 Logo Black.png");
+  background-image: url("../assets/3-Logo-Black.png");
 }
 
 .logo-white,
 .logo-white-small {
-  background-image: url("../assets/3 Logo White.png");
+  background-image: url("../assets/3-Logo-White.png");
 }
 
 .logo-color,
 .logo-color-small {
-  background-image: url("../assets/3 Logo Color.png");
+  background-image: url("../assets/3-Logo-Color.png");
 }
 
 .primary-logo-white,
@@ -167,7 +167,7 @@ header {
 
 nav {
   margin: 0;
-  align-content: bottom !important;
+  align-content: baseline !important;
 }
 
 #sign-out-button:hover {
