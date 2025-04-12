@@ -1,6 +1,5 @@
-
 import { useSelector } from "react-redux";
-import "../../../index.css"
+import "../../../index.css";
 
 const Home = () => {
 	const { user } = useSelector((state) => state.user);
@@ -13,4 +12,4 @@ const Home = () => {
 	)
 }
 
-export default Home
+export default Home;
