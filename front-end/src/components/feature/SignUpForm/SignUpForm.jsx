@@ -4,6 +4,8 @@ import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 import { createUser } from '../../../services/Firebase/firebaseService';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { setCurrentUser } from '../../../reducers/userSlice';
 
 const SignUpForm = () => {
 	const [formFields, setFormFields] = useState({
@@ -18,7 +20,7 @@ const SignUpForm = () => {
 		password, 
 		confirmPassword 
 	} = formFields;
-	
+	const dispatch = useDispatch();
 
 	function handleChange (event) {
 		const { name, value } = event.target;
@@ -34,9 +36,9 @@ const SignUpForm = () => {
 		}
 
 		try {
-			await createUser(email, password);
+			const {user} = await createUser(email, password);
+			dispatch(setCurrentUser(user));
 			resetForm();
-			//navigate home
 			navigate("/");
 		}catch (error){
 			switch(error.code){

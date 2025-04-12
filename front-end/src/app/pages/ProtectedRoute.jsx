@@ -1,9 +1,8 @@
 import { Navigate, Outlet } from "react-router";
-import { UserContext } from "../../contexts/UserContext";
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 
 const ProtectedRoute = () => {
-	const { currentUser, loading } = useContext(UserContext);
+	const { currentUser, loading } = useSelector((state) => state.users);
 
 	if(loading) return null;
 	

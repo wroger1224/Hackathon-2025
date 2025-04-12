@@ -5,6 +5,9 @@ import { signInWithEmailPassword } from "../../../services/Firebase/firebaseServ
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import Button from "../../common/Button/Button";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../../../reducers/userSlice";
+
 
 const defaultFormFields = {
 	email: "",
@@ -19,7 +22,7 @@ const SignInForm = () => {
 		email, 
 		password 
 	} = formFields;
-	
+	const dispatch = useDispatch();
 
 	function handleChange (event) {
 		const { name, value } = event.target;
@@ -30,7 +33,8 @@ const SignInForm = () => {
 		event.preventDefault();
 
 		try {
-			await signInWithEmailPassword(email, password);
+			const {user} = await signInWithEmailPassword(email, password);
+			dispatch(setCurrentUser(user));
 			resetForm();
 			navigate("/");
 		}catch(error){
@@ -54,7 +58,8 @@ const SignInForm = () => {
 
 	async function signInWithGoogle() {
 		try {
-			await signInWithGooglePopup();
+			const {user} = await signInWithGooglePopup();
+			dispatch(setCurrentUser(user));
 			resetForm();
 			navigate("/");
 		}catch(error){

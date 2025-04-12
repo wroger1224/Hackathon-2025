@@ -1,14 +1,17 @@
 import { signOutUser } from '../../../services/Firebase/firebaseService';
 import Button from '../Button/Button';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { setCurrentUser } from '../../../reducers/userSlice';
+
 
 const Header = () => {
-    const navigate = useNavigate();
+		const dispatch = useDispatch();
 
     const handleSignOut = async () => {
         try {
             await signOutUser();
-            navigate('/auth');
+						dispatch(setCurrentUser(null));
         } catch (error) {
             console.error('Error signing out:', error);
         }
