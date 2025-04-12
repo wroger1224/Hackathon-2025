@@ -59,6 +59,7 @@ p {
   font-size: 1rem;
   font-weight: 400;
   font-family: "ITC Bauhaus", sans-serif;
+  color: black;
 }
 
 /* Utility classes for colors */
@@ -217,8 +218,3 @@ nav {
   flex-direction: column;
   align-items: center;
 }
-
-#home-container {
-
-}
-
