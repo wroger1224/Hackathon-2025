@@ -15,7 +15,7 @@ const SignUpForm = () => {
 		confirmPassword: ""
 	});
 	const dispatch = useDispatch();
-	const { signUpError } = useSelector((state) => state.user);
+	const signUpError = useSelector((state) => state.user.signUpError);
 	const navigate = useNavigate();
 	const { 
 		email, 

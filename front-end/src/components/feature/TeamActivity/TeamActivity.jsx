@@ -20,7 +20,7 @@ const TeamActivity = () => {
 		<div className="max-w-4xl mx-auto px-4 py-8">
 			<h1 className="text-3xl font-bold mb-8 text-center">Team Activity</h1>
 			
-			<div className="shadow-lg rounded-lg overflow-hidden">
+			<div className="shadow-lg rounded-lg overflow-hidden mb-6">
 				<table className="min-w-full divide-y">
 					<thead>
 						<tr>

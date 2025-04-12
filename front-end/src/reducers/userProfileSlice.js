@@ -22,6 +22,7 @@ export const fetchUserProfile = createAsyncThunk(
 	}
 );
 
+//need to add role
 export const updateUserProfile = createAsyncThunk(
 	'userProfile/updateUserProfile',
 	async (profile, { rejectWithValue }) => {
