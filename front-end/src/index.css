@@ -18,7 +18,8 @@ h2,
 h3,
 h4,
 h5,
-h6, a {
+h6,
+a {
   font-family: "Barabara", sans-serif;
   font-weight: 600;
 }
@@ -99,6 +100,7 @@ p {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  margin: 0;
 }
 
 .primary-logo,
@@ -161,4 +163,13 @@ p {
 header {
   margin: 0;
   padding: 0;
+}
+
+nav {
+  margin: 0;
+  align-content: bottom !important;
+}
+
+#sign-out-button:hover {
+  background-color: var(--red-orange);
 }

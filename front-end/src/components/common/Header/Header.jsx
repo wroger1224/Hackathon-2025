@@ -1,6 +1,7 @@
 import { signOutUser } from "../../../services/Firebase/firebaseService";
 import Button from "../Button/Button";
 import { useNavigate } from "react-router";
+import "../../../index.css";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-sm px-4 sm:px-6 lg:px-8 py-4 ">
+    <header className="bg-white shadow-sm px-4 sm:px-6 lg:px-8 py-4 space-y-4 flex justify-evenly items-center content-center">
       <img
         src="./assets/0-Primary-Logo.png"
         alt="Logo"
@@ -32,9 +33,11 @@ const Header = () => {
           Team
         </a>
       </nav>
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-900">Activity Tracker</h1>
-        <Button onClick={handleSignOut} variant="secondary">
+      <div
+        
+        className="max-w-7xl pr-4 flex justify-end items-center"
+      >
+        <Button onClick={handleSignOut} variant="secondary" id="sign-out-button">
           Sign Out
         </Button>
       </div>
