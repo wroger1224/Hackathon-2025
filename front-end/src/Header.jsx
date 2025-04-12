@@ -1,11 +1,7 @@
 function Header() {
   return (
     <header className="flex items-center justify-between p-4 bg-white">
-      <img
-        src="./assets/0-Primary-Logo.png"
-        alt="Logo"
-        className="primary-logo"
-      />
+      <img src="/0-Primary-Logo.png" alt="Logo" className="primary-logo" />
       <nav className="flex gap-4">
         <a href="#" className="text-black hover:text-red-orange">
           Home
@@ -14,7 +10,10 @@ function Header() {
           About
         </a>
         <a href="#" className="text-black hover:text-red-orange">
-          Team
+          Teams
+        </a>
+        <a href="#" className="text-black hover:text-red-orange">
+          Admins
         </a>
       </nav>
     </header>

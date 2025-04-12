@@ -1,16 +1,17 @@
 @import "tailwindcss";
 
-:root {
-  --red-orange: #ff5c4d;
-  --orange: #ff9636;
-  --mimosa: #ffcd58;
-  --chartreuse: #dad870;
-  --blue: #38b1f6;
+@font-face {
+  font-family: "Barabara";
+  src: url("./assets/fonts/BARABARA-final.otf") format("opentype");
 }
 
-body {
-  background-color: #38b1f6;
-  color: black;
+/* Debug styles */
+.debug-font {
+  font-family: "Barabara", sans-serif;
+  font-size: 2rem;
+  color: red;
+  border: 2px solid red;
+  padding: 1rem;
 }
 
 h1,
@@ -22,6 +23,21 @@ h6,
 a {
   font-family: "Barabara", sans-serif;
   font-weight: 600;
+  text-transform: uppercase;
+}
+
+:root {
+  --font-barabara: "Barabara", sans-serif;
+  --red-orange: #ff5c4d;
+  --orange: #ff9636;
+  --mimosa: #ffcd58;
+  --chartreuse: #dad870;
+  --blue: #38b1f6;
+}
+
+body {
+  background-color: #38b1f6;
+  color: black;
 }
 
 h1 {
@@ -43,7 +59,6 @@ p {
   font-size: 1rem;
   font-weight: 400;
   font-family: "ITC Bauhaus", sans-serif;
-  color: white;
 }
 
 /* Utility classes for colors */
@@ -110,27 +125,27 @@ p {
 
 .primary-logo-white,
 .primary-logo-white-small {
-  background-image: url("../assets/0 Primary Logo White.png");
+  background-image: url("../assets/0-Primary-Logo-White.png");
 }
 
 .secondary-logo,
 .secondary-logo-small {
-  background-image: url("../assets/2 Secondary Logo.png");
+  background-image: url("../assets/2-Secondary-Logo.png");
 }
 
 .logo-black,
 .logo-black-small {
-  background-image: url("../assets/3 Logo Black.png");
+  background-image: url("../assets/3-Logo-Black.png");
 }
 
 .logo-white,
 .logo-white-small {
-  background-image: url("../assets/3 Logo White.png");
+  background-image: url("../assets/3-Logo-White.png");
 }
 
 .logo-color,
 .logo-color-small {
-  background-image: url("../assets/3 Logo Color.png");
+  background-image: url("../assets/3-Logo-Color.png");
 }
 
 .primary-logo-white,
@@ -154,9 +169,29 @@ p {
 }
 
 /* Auth Page */
+main {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 #auth-container {
   background-color: var(--blue);
+}
+
+#auth-logo {
+  justify-content: center;
+  width: 300px;
+}
+
+#sign-in-container {
+  width: 500px;
+}
+
+#sign-up-container {
+  width: 500px;
 }
 
 /* Header */
@@ -167,9 +202,23 @@ header {
 
 nav {
   margin: 0;
-  align-content: bottom !important;
+  align-content: baseline !important;
 }
 
 #sign-out-button:hover {
   background-color: var(--red-orange);
 }
+
+/* Home Page */
+
+#home-main {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#home-container {
+
+}
+
