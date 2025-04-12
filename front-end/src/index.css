@@ -1,16 +1,17 @@
 @import "tailwindcss";
 
-:root {
-  --red-orange: #ff5c4d;
-  --orange: #ff9636;
-  --mimosa: #ffcd58;
-  --chartreuse: #dad870;
-  --blue: #38b1f6;
+@font-face {
+  font-family: "Barabara";
+  src: url("./assets/fonts/BARABARA-final.otf") format("opentype");
 }
 
-body {
-  background-color: #38b1f6;
-  color: black;
+/* Debug styles */
+.debug-font {
+  font-family: "Barabara", sans-serif;
+  font-size: 2rem;
+  color: red;
+  border: 2px solid red;
+  padding: 1rem;
 }
 
 h1,
@@ -22,6 +23,21 @@ h6,
 a {
   font-family: "Barabara", sans-serif;
   font-weight: 600;
+  text-transform: uppercase;
+}
+
+:root {
+  --font-barabara: "Barabara", sans-serif;
+  --red-orange: #ff5c4d;
+  --orange: #ff9636;
+  --mimosa: #ffcd58;
+  --chartreuse: #dad870;
+  --blue: #38b1f6;
+}
+
+body {
+  background-color: #38b1f6;
+  color: black;
 }
 
 h1 {
@@ -43,7 +59,6 @@ p {
   font-size: 1rem;
   font-weight: 400;
   font-family: "ITC Bauhaus", sans-serif;
-  color: white;
 }
 
 /* Utility classes for colors */
@@ -193,3 +208,17 @@ nav {
 #sign-out-button:hover {
   background-color: var(--red-orange);
 }
+
+/* Home Page */
+
+#home-main {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#home-container {
+
+}
+
