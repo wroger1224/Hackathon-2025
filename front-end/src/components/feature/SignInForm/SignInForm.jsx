@@ -21,7 +21,7 @@ const SignInForm = () => {
 		password 
 	} = formFields;
 	const dispatch = useDispatch();
-	const { signInError } = useSelector((state) => state.user);
+	const signInError = useSelector((state) => state.user.signInError);
 
 	function handleChange (event) {
 		const { name, value } = event.target;
@@ -83,7 +83,11 @@ const SignInForm = () => {
 					<Button type="button" onClick={signInWithGoogle} variant="secondary">Google Sign In</Button>		
 				</div>
 				{
-					signInError && <p className='text-red-600 text-center mt-2'>{ signInError }</p>
+					signInError && (
+						<div className="mt-2 p-2 bg-red-100 border border-red-300 rounded">
+							<p className="!text-black text-sm font-medium text-center">{ signInError }</p>
+						</div>
+					)
 				}
 			</Form>
 	)

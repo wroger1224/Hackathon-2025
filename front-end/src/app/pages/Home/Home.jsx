@@ -1,5 +1,8 @@
 import { useSelector } from "react-redux";
 import Widget from "../../../components/common/Widget/Widget";
+import TeamActivity from "../../../components/feature/TeamActivity/TeamActivity";
+import Milestones from "../../../components/feature/Milestones/Milestones";
+import Leaderboard from "../../../components/feature/Leaderboard/Leaderboard";
 import "../../../index.css";
 
 const Home = () => {
@@ -24,12 +27,12 @@ const Home = () => {
       >
         <Widget>
           <h3 className="text-xl font-semibold mb-4">Team</h3>
-          <p>Content goes here</p>
+          <TeamActivity />
         </Widget>
 
         <Widget>
           <h3 className="text-xl font-semibold mb-4">Leaderboard</h3>
-          <p>Content goes here</p>
+          <Leaderboard />
         </Widget>
 
         <Widget>
@@ -39,7 +42,7 @@ const Home = () => {
 
         <Widget className="md:col-span-2">
           <h3 className="text-xl font-semibold mb-4">Minutes</h3>
-          <p>progress bar goes here</p>
+					<Milestones />
         </Widget>
 
         <Widget>
