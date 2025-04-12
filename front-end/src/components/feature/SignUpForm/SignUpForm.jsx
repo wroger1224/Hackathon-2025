@@ -5,6 +5,7 @@ import Button from '../../common/Button/Button';
 import { createUser } from '../../../services/Firebase/firebaseService';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser, setSignUpError } from '../../../reducers/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 const SignUpForm = () => {
@@ -14,7 +15,8 @@ const SignUpForm = () => {
 		confirmPassword: ""
 	});
 	const dispatch = useDispatch();
-	const { signUpError } = useSelector((state) => state.user);	
+	const { signUpError } = useSelector((state) => state.user);
+	const navigate = useNavigate();
 	const { 
 		email, 
 		password, 
@@ -85,7 +87,11 @@ const SignUpForm = () => {
 			<Button type='submit' variant='primary'>Sign Up</Button>
 
 			{
-				signUpError && <p className='text-red-600 text-center mt-2'>{ signUpError }</p>
+				signUpError && (
+					<div className="mt-2 p-2 bg-red-100 border border-red-300 rounded">
+						<p className="!text-black text-sm font-medium text-center">{ signUpError }</p>
+					</div>
+				)
 			}
 		</Form>
 	)

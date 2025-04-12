@@ -2,6 +2,7 @@ import { signOutUser } from "../../../services/Firebase/firebaseService";
 import Button from "../Button/Button";
 import { useNavigate } from "react-router";
 import "../../../index.css";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -17,21 +18,26 @@ const Header = () => {
 
   return (
     <header className="bg-white shadow-sm px-4 sm:px-6 lg:px-8 py-4 space-y-4 flex justify-evenly items-center content-center">
-      <img
-        src="./assets/0-Primary-Logo.png"
-        alt="Logo"
-        className="primary-logo"
-      />
+      <Link to="/">
+				<img
+					src="./assets/0-Primary-Logo.png"
+					alt="Logo"
+					className="primary-logo"
+				/>
+			</Link>
       <nav className="flex gap-4">
-        <a href="#" className="text-black hover:text-red-orange">
+        <Link to="/" className="text-black hover:text-red-orange">
           Home
-        </a>
-        <a href="#" className="text-black hover:text-red-orange">
+        </Link>
+        <Link to="#" className="text-black hover:text-red-orange">
           About
-        </a>
-        <a href="#" className="text-black hover:text-red-orange">
+        </Link>
+        <Link to="#" className="text-black hover:text-red-orange">
           Team
-        </a>
+        </Link>
+				<Link to="/leaderboard" className="text-black hover:text-red-orange">
+					Leaderboard
+				</Link>
       </nav>
       <div
         
