@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { mockUsers, mockCompetitions } from "../../../data/mockData";
 import { Link } from "react-router-dom";
-import './index.css'
+import "../../../index.css"
 
 const Admin = () => {
     const { user } = useSelector((state) => state.user);
