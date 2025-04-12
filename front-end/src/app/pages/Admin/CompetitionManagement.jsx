@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { UserContext } from '../../../contexts/UserContext';
 import { mockCompetitions, mockUsers } from '../../../data/mockData';
+import './index.css'
 
 const CompetitionManagement = () => {
     const { competitionId } = useParams();

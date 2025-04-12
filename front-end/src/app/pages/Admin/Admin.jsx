@@ -2,6 +2,7 @@ import { UserContext } from "../../../contexts/UserContext";
 import { useContext, useState } from "react";
 import { mockUsers, mockCompetitions } from "../../../data/mockData";
 import { Link } from "react-router-dom";
+import './index.css'
 
 const Admin = () => {
     const { currentUser } = useContext(UserContext);
