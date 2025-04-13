@@ -92,7 +92,7 @@ const Milestones = () => {
 			TotalPoints: 15,
 		},
 		{
-			UserActivityID: 2,
+			UserActivityID: 3,
 			CompetitionID: 2,
 			UserInput: "Run 6k",
 			TotalTime: 35,
