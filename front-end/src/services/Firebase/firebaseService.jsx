@@ -23,3 +23,9 @@ export const createUser = async (email, password) => {
 
 export const signOutUser = async () => signOut(auth);
 export const onIdTokenChangedListener = (callback) => onIdTokenChanged(auth, callback);
+
+export const getCurrentUserToken = async () => {
+	const currentUser = auth.currentUser;
+	if (!currentUser) return null;
+	return await currentUser.getIdToken();
+};
