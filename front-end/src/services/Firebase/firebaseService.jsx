@@ -4,8 +4,17 @@ import {
 	signInWithEmailAndPassword, 
 	signOut,
 	createUserWithEmailAndPassword,
-	onIdTokenChanged
+	onIdTokenChanged,
+	getAuth,
+	GoogleAuthProvider
 } from 'firebase/auth';
+
+export const provider = new GoogleAuthProvider();
+provider.setCustomParameters({
+	prompt: "select_account"
+});
+
+export const auth = getAuth();
 
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
@@ -29,3 +38,4 @@ export const getCurrentUserToken = async () => {
 	if (!currentUser) return null;
 	return await currentUser.getIdToken();
 };
+
