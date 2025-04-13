@@ -65,68 +65,66 @@ const Home = () => {
   }, []);
 
   return (
-    <main id="home-main">
-      <div id="home-container">
-        <h1>Welcome {profile.name} to Maxxtivity</h1>
-        <h2></h2>
-        <p>
-          Here you can see your progress and your current level. You can also
-          see your current competition and your progress in it.
-        </p>
-      </div>
-      <div
-        id="home-widgets"
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6"
-      >
-        <TrackingHistory />
-        <TeamLeaderboard />
-        <TeamMemberActivity />
-
-        <Widget>
-          <h3 className="text-xl font-semibold mb-4">Add Workout</h3>
-          <p>Content goes here</p>
-        </Widget>
-
-        <Widget className="md:col-span-2">
-          <h3 className="text-xl font-semibold mb-4">Minutes</h3>
-          <Milestones />
-        </Widget>
-
-        <Widget>
-          <h3 className="text-xl font-semibold mb-4">Badges</h3>
-          <p>Content goes here</p>
-        </Widget>
-
-        <Widget className="lg:col-span-2">
-          <h3 className="text-xl font-semibold mb-4">Workout Log</h3>
-          <WorkoutLog setSuccessMessage={setSuccessMessage}/>
-        </Widget>
-
-
-        <Widget className="md:col-span-2 lg:col-span-3">
-          <h3 className="text-xl font-semibold mb-4">Activity Timeline</h3>
-          <p>Your recent activities will appear here</p>
-        </Widget>
-
-				<Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            contentLabel="Example Modal"
+    <div className="relative w-full">
+      <main id="home-main" className="min-h-screen">
+        <div className="pb-[400px]">
+          <div id="home-container">
+            <h1>Welcome {profile.name} to Maxxtivity</h1>
+            <h2></h2>
+            <p>
+              Here you can see your progress and your current level. You can
+              also see your current competition and your progress in it.
+            </p>
+          </div>
+          <div
+            id="home-widgets"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6"
           >
-            <h2>Modal Title</h2>
-            <button onClick={closeModal}>Close</button>
-            <div>{ successMessage }</div>
-        </Modal>
-      </div>
-      {/*Component inspired by Kevin Levron:
-      https://x.com/soju22/status/1858925191671271801 */}
+            <TrackingHistory />
+
+            <Widget className="lg:col-span-2">
+              <h2 className="text-xl font-semibold mb-4">Workout Log</h2>
+              <WorkoutLog setSuccessMessage={setSuccessMessage}/>
+            </Widget>
+
+            <Widget className="md:col-span-3">
+              <h3 className="text-xl font-semibold mb-4"></h3>
+              <Milestones />
+            </Widget>
+
+            <TeamLeaderboard />
+
+            <TeamMemberActivity />
+
+            <Widget>
+              <h2 className="text-xl font-semibold mb-4">Badges</h2>
+              <p>Content goes here</p>
+            </Widget>
+						<Modal
+							isOpen={modalIsOpen}
+							onRequestClose={closeModal}
+							contentLabel="Example Modal"
+						>
+							<h2>Modal Title</h2>
+							<button onClick={closeModal}>Close</button>
+							<div>{ successMessage }</div>
+          	</Modal>
+        </div>
+			</div>
+      </main>
+
+      {/* Ballpit overlay */}
       <div
         style={{
-          position: "relative",
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          width: "100vw",
+          height: "700px",
+          zIndex: 9999,
+          pointerEvents: "none",
           overflow: "hidden",
-          minHeight: "500px",
-          maxHeight: "500px",
-          width: "100%",
         }}
       >
         <Ballpit
@@ -137,10 +135,9 @@ const Home = () => {
           followCursor={true}
           colors={["#ff5c4d", "#ff9636", "#ffcd58", "#dad870", "#38b1f6"]}
           lightIntensity={100}
-          height={500}
         />
       </div>
-    </main>
+    </div>
   );
 };
 
