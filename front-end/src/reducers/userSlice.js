@@ -77,8 +77,12 @@ const userSlice = createSlice({
 				state.signUpError = action.payload
 				state.loading = false
 			},
-			addUserActivity: (state, action) => {
-				state.userActivities.push(action.payload)
+            addUserActivity: (state, action) => {
+                // the response contains {userData, points, motivationalResponse}
+                console.log(action.payload);
+                state.userData = action.payload.userData;
+                state.points = action.payload.points;
+                state.motivationalResponse = action.payload.motivationalResponse;
 			},
 			updateUserActivity: (state, action) => {
                 // the response contains {userData, points, motivationalResponse}
@@ -117,10 +121,11 @@ const userSlice = createSlice({
             })
             // Update User Activity
             .addCase(updateUserActivityThunk.fulfilled, (state, action) => {
-                const index = state.userActivities.findIndex(activity => activity.id === action.payload.id);
-                if (index !== -1) {
-                    state.userActivities[index] = action.payload;
-                }
+                // the response contains {userData, points, motivationalResponse}
+                console.log(action.payload);
+                state.userData = action.payload.userData;
+                state.points = action.payload.points;
+                state.motivationalResponse = action.payload.motivationalResponse;
             })
             .addCase(updateUserActivityThunk.rejected, (state, action) => {
                 state.userActivityError = action.payload;
