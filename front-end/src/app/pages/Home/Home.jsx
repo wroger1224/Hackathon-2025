@@ -30,6 +30,8 @@ import { fetchUserDataThunk } from "../../../reducers/userSlice";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import Badges from "../../../components/feature/Badges/Badges";
+import { setMotivationalResponse } from "../../../reducers/userSlice";
+
 const Home = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
@@ -37,8 +39,23 @@ const Home = () => {
   const { profile } = useSelector((state) => state.userProfile);
   console.log(profile);
 
-  const [successMessage, setSuccessMessage] = useState(null);
+ 	const motivationalResponse = useSelector((state) => state.user.motivationalResponse);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+	const customStyles = {
+		content: {
+			top: '50%',
+			left: '50%',
+			right: 'auto',
+			bottom: 'auto',
+			marginRight: '-50%',
+			transform: 'translate(-50%, -50%)',
+			margin: '5px 0 0 5px'
+		},
+		overlay: {
+			zIndex: 1000,
+			backgroundColor: 'rgba(0, 0, 0, .75)',
+		}
+	};
 
   function openModal() {
     setModalIsOpen(true);
@@ -49,17 +66,17 @@ const Home = () => {
   }
 
   useEffect(() => {
-    if (successMessage) {
+    if (motivationalResponse) {
       setTimeout(() => {
         openModal();
       }, 1000);
 
       setTimeout(() => {
         closeModal();
-        setSuccessMessage(null);
-      }, 4000);
+        dispatch(setMotivationalResponse(null));
+      }, 5000);
     }
-  }, [successMessage]);
+  }, [motivationalResponse]);
 
   useEffect(() => {
     dispatch(fetchCommunityData());
@@ -88,7 +105,7 @@ const Home = () => {
 
             <Widget className="lg:col-span-2 bg-white/90 backdrop-blur-sm shadow-lg hover:bg-white/95 transition-all">
               <h2 className="text-xl font-semibold mb-4">Workout Log</h2>
-              <WorkoutLog setSuccessMessage={setSuccessMessage} />
+              <WorkoutLog />
             </Widget>
 
             <TeamLeaderboard />
@@ -102,11 +119,11 @@ const Home = () => {
             <Modal
               isOpen={modalIsOpen}
               onRequestClose={closeModal}
-              contentLabel="Example Modal"
+              contentLabel="Motivational Response"
+              style={customStyles}
             >
-              <h2>Modal Title</h2>
               <button onClick={closeModal}>Close</button>
-              <div>{successMessage}</div>
+              <div>{motivationalResponse}</div>
             </Modal>
           </div>
         </div>
