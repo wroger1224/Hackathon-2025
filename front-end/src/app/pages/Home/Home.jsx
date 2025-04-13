@@ -24,6 +24,7 @@ import TrackingHistory from "../../../components/feature/TrackingHistory/Trackin
 import TeamLeaderboard from "../../../components/feature/TeamLeaderboard/Teamleaderboard";
 import TeamMemberActivity from "../../../components/feature/TeamHistory/Teamhistory";
 import WorkoutLog from "../../../components/feature/WorkoutLog/WorkoutLog";
+import Ballpit from "../../../components/feature/FunStuff/Ballpit";
 
 const Home = () => {
   const { user } = useSelector((state) => state.user);
@@ -81,6 +82,27 @@ const Home = () => {
           <h3 className="text-xl font-semibold mb-4">Activity Timeline</h3>
           <p>Your recent activities will appear here</p>
         </Widget>
+      </div>
+      //Component inspired by Kevin Levron:
+      //https://x.com/soju22/status/1858925191671271801
+      <div
+        style={{
+          position: "relative",
+          overflow: "hidden",
+          minHeight: "500px",
+          maxHeight: "500px",
+          width: "100%",
+        }}
+      >
+        <Ballpit
+          count={200}
+          gravity={0.7}
+          friction={0.8}
+          wallBounce={0.95}
+          followCursor={true}
+          colors={["#ff5c4d", "#ff9636", "#ffcd58", "#dad870", "#38b1f6"]}
+          lightIntensity={100}
+        />
       </div>
     </main>
   );
