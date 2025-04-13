@@ -13,6 +13,21 @@ $ npm run dev
 ```
 
 ```
+/front-end/config/firebaseconfig.js
+<Add SDKs for Firebase products that you want to use>
+- https://firebase.google.com/docs/web/setup#available-libraries
+<Your web app's Firebase configuration>
+<Initialize Firebase and export values> :
+  export const app = initializeApp(firebaseConfig);
+  
+  export const provider = new GoogleAuthProvider();
+  
+  provider.setCustomParameters({
+  	prompt: "select_account"
+  });
+  
+  export const auth = getAuth();
+
 /front-end
 $ npm install
 $ npm run dev
