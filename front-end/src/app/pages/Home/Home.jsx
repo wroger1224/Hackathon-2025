@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import Widget from "../../../components/common/Widget/Widget";
-import TeamActivity from "../../../components/feature/TeamActivity/TeamActivity";
 import Milestones from "../../../components/feature/Milestones/Milestones";
 import "../../../index.css";
 import {
@@ -49,7 +48,6 @@ const Home = () => {
         <TeamMemberActivity />
         <Widget>
           <h3 className="text-xl font-semibold mb-4">Team</h3>
-          <TeamActivity />
         </Widget>
 
 
