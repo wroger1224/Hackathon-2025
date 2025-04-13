@@ -17,14 +17,14 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-sm px-4 sm:px-6 lg:px-8 py-4 space-y-4 flex justify-evenly items-center content-center shrink-0">
+    <header className="bg-white shadow-sm px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
       <img
         src="./assets/0-Primary-Logo.png"
         alt="Logo"
         className="primary-logo"
       />
-      <Navbar />
-      <div className="max-w-7xl pr-4 flex justify-end items-center">
+      <div className="flex items-center gap-8">
+        <Navbar />
         <Button
           onClick={handleSignOut}
           variant="secondary"
