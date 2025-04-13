@@ -46,7 +46,7 @@ CREATE TABLE User (
     FOREIGN KEY (TeamID) REFERENCES Team(TeamID) ON DELETE SET NULL
 );
 
--- Create Competitions Table
+-- Create Competitions Table   
 CREATE TABLE Competitions (
     CompetitionID INTEGER PRIMARY KEY,
     CompetitionName TEXT NOT NULL,

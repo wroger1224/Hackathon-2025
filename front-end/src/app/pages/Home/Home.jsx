@@ -26,6 +26,7 @@ import TeamMemberActivity from "../../../components/feature/TeamHistory/Teamhist
 import WorkoutLog from "../../../components/feature/WorkoutLog/WorkoutLog";
 import Ballpit from "../../../components/feature/FunStuff/Ballpit";
 import { fetchCommunityData } from "../../../reducers/communitySlice";
+import { fetchUserDataThunk } from "../../../reducers/userSlice";
 import { useEffect, useState } from "react";
 import Modal from 'react-modal';
 
@@ -62,7 +63,8 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(fetchCommunityData());
-  }, []);
+    dispatch(fetchUserDataThunk());
+  }, [dispatch]);
 
   return (
     <div className="relative w-full">
