@@ -16,11 +16,11 @@ const userSlice = createSlice({
 				state.loading = false
 			},
 			setSignInError: (state, action) => {
-				state.error = action.payload
+				state.signInError = action.payload
 				state.loading = false
 			},
 			setSignUpError: (state, action) => {
-				state.error = action.payload
+				state.signUpError = action.payload
 				state.loading = false
 			}
 		}

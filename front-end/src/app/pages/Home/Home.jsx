@@ -25,18 +25,19 @@ import TeamLeaderboard from "../../../components/feature/TeamLeaderboard/Teamlea
 import TeamMemberActivity from "../../../components/feature/TeamHistory/Teamhistory";
 import WorkoutLog from "../../../components/feature/WorkoutLog/WorkoutLog";
 import Ballpit from "../../../components/feature/FunStuff/Ballpit";
-
+import { fetchCommunityData } from "../../../reducers/communitySlice";
 import { useEffect } from "react";
-import { communityApi } from "../../../services/Firebase/apiService";
+import { useDispatch } from "react-redux";
 
 const Home = () => {
   const { user } = useSelector((state) => state.user);
   console.log(user);
   const { profile } = useSelector((state) => state.userProfile);
   console.log(profile);
+	const dispatch = useDispatch();
 
   useEffect(() => {
-    communityApi.fetchCommunityData();
+    dispatch(fetchCommunityData()).unwrap();
   }, []);
 
   return (
