@@ -26,7 +26,8 @@ import TeamMemberActivity from "../../../components/feature/TeamHistory/Teamhist
 import WorkoutLog from "../../../components/feature/WorkoutLog/WorkoutLog";
 import Ballpit from "../../../components/feature/FunStuff/Ballpit";
 import { fetchCommunityData } from "../../../reducers/communitySlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Modal from 'react-modal';
 
 const Home = () => {
 	const dispatch = useDispatch();
@@ -35,6 +36,29 @@ const Home = () => {
 	const { profile } = useSelector((state) => state.userProfile);
 	console.log(profile);
 
+	const [successMessage, setSuccessMessage] = useState(null);
+	const [modalIsOpen, setModalIsOpen] = useState(false);
+    
+	function openModal() {
+		setModalIsOpen(true);
+	}
+
+	function closeModal() {
+		setModalIsOpen(false);
+	}
+
+	useEffect(() => {
+		if (successMessage) {
+			setTimeout(() => {
+				openModal();
+			}, 1000);
+
+			setTimeout(() => {
+				closeModal();
+				setSuccessMessage(null);
+			}, 4000);
+		}
+	}, [successMessage]);
 
   useEffect(() => {
     dispatch(fetchCommunityData());
@@ -75,7 +99,7 @@ const Home = () => {
 
         <Widget className="lg:col-span-2">
           <h3 className="text-xl font-semibold mb-4">Workout Log</h3>
-          <WorkoutLog />
+          <WorkoutLog setSuccessMessage={setSuccessMessage}/>
         </Widget>
 
 
@@ -83,6 +107,16 @@ const Home = () => {
           <h3 className="text-xl font-semibold mb-4">Activity Timeline</h3>
           <p>Your recent activities will appear here</p>
         </Widget>
+
+				<Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            contentLabel="Example Modal"
+          >
+            <h2>Modal Title</h2>
+            <button onClick={closeModal}>Close</button>
+            <div>{ successMessage }</div>
+        </Modal>
       </div>
       {/*Component inspired by Kevin Levron:
       https://x.com/soju22/status/1858925191671271801 */}
