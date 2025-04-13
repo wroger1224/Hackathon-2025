@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   Home,
   BarChart2,
@@ -9,34 +10,51 @@ import {
 } from "lucide-react";
 
 function Navbar() {
+  const location = useLocation();
+
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
+
+  const getLinkStyles = (path) => {
+    return `flex items-center gap-3 font-medium py-2 px-3 rounded-lg transition-colors ${
+      isActive(path) ? "bg-red-orange text-white" : "text-gray-500 hover:bg-gray-50"
+    }`;
+  };
+
   return (
     <nav className="flex items-center gap-4">
-      <a
-        href="/"
-        className="flex items-center gap-3 text-red-orange font-medium py-2 px-3 rounded-lg bg-red-100"
-      >
-        <Home size={20} className="text-red-orange" />
+      <Link to="/" className={getLinkStyles("/")}>
+        <Home
+          size={20}
+          className={isActive("/") ? "text-white" : "text-gray-500"}
+        />
         <span>Home</span>
-      </a>
-      <a
-        href="/admin"
-        className="flex items-center gap-3 text-gray-500 font-medium py-2 px-3 rounded-lg hover:bg-gray-50"
-      >
+      </Link>
+
+      <Link to="/admin" className={getLinkStyles("/admin")}>
+        <BarChart2
+          size={20}
+          className={isActive("/admin") ? "text-white" : "text-gray-500"}
+        />
         <span>Admin</span>
-      </a>
-      <a
-        href="#"
-        className="flex items-center gap-3 text-gray-500 font-medium py-2 px-3 rounded-lg hover:bg-gray-50"
-      >
+      </Link>
+
+      <Link to="/team" className={getLinkStyles("/team")}>
+        <Users
+          size={20}
+          className={isActive("/team") ? "text-white" : "text-gray-500"}
+        />
         <span>Team</span>
-      </a>
-      <a
-        href="#"
-        className="flex items-center gap-3 text-gray-500 font-medium py-2 px-3 rounded-lg hover:bg-gray-50"
-      >
-        <Settings size={20} />
+      </Link>
+
+      <Link to="/profile" className={getLinkStyles("/profile")}>
+        <Settings
+          size={20}
+          className={isActive("/profile") ? "text-white" : "text-gray-500"}
+        />
         <span>Profile</span>
-      </a>
+      </Link>
     </nav>
   );
 }
