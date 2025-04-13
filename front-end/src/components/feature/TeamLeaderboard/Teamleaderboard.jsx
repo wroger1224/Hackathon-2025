@@ -16,23 +16,11 @@ function TeamLeaderboard() {
     <div className="bg-white rounded-3xl p-6 shadow-sm">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-lg font-bold text-black">Team Leaderboard</h2>
-        <div className="flex gap-2">
-          <button className="p-1 text-black hover:bg-gray-100 rounded">
-            <Trophy size={18} />
-          </button>
-          <button className="p-1 text-black hover:bg-gray-100 rounded">
-            <Users size={18} />
-          </button>
-        </div>
       </div>
 
       <div className="space-y-4">
         {displayedTeams.map((team, index) => {
 					const {
-						CompetitionID,
-						Points,
-						TeamCaptain,
-						TeamID,
 						TeamName,
 						memberCount,
 						totalTeamPoints

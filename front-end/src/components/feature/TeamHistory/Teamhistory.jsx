@@ -1,36 +1,29 @@
-import {Award, Clock, ChevronDown, Footprints, MoreHorizontal, Users } from "lucide-react";
+import {Award, Clock, ChevronDown, Hourglass, MoreHorizontal, Users } from "lucide-react";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
 // NEW TEAM MEMBER ACTIVITY COMPONENT
 function TeamMemberActivity() {
-    const teamActivities = [
-      {
-        memberName: 'Alex Chen',
-        team: 'Road Runners',
-        activity: 'Morning Run',
-        time: 'Today • 6:00 - 7:15',
-        steps: 8420,
-        calories: 450,
-        avatar: '/api/placeholder/40/40'
-      },
-      {
-        memberName: 'Maya Johnson',
-        team: 'Road Runners',
-        activity: 'Lunch Walk',
-        time: 'Today • 12:30 - 13:15',
-        steps: 5680,
-        calories: 280,
-        avatar: '/api/placeholder/40/40'
-      },
-      {
-        memberName: 'Taylor Wong',
-        team: 'Road Runners',
-        activity: 'Evening Jog',
-        time: 'Yesterday • 18:00 - 19:00',
-        steps: 7240,
-        calories: 380,
-        avatar: '/api/placeholder/40/40'
-      }
-    ];
+	const community = useSelector(state => state.community);
+	const { users } = community;
+	const userProfile = useSelector(state => state.userProfile);
+	const { profile } = userProfile;
+	const { TeamID, TeamName } = profile;
+	const team = users.filter(user => user.TeamID === TeamID);
+	const teamLength = team?.length;
+	const teamObject = team?.map(user => {
+		return {
+			FirstName: user.FirstName,
+			LastName: user.LastName,
+			TeamID: user.TeamID,
+			allActivities: JSON.parse(user.allActivities)
+		}
+	})
+
+	const [showAllTeams, setShowAllTeams] = useState(false);
+	
+	const displayedTeam = showAllTeams ? teamObject : teamObject.slice(0, 3);
+
   
     return (
       <div className="bg-white rounded-3xl p-6 shadow-sm">
@@ -39,42 +32,49 @@ function TeamMemberActivity() {
             <h2 className="text-lg font-bold text-gray-800">Team Activity</h2>
             <div className="flex items-center text-xs text-gray-500 mt-1">
               <Users size={12} className="mr-1" />
-              <span>Road Runners • 12 members</span>
+              <span>{ TeamName } • { teamLength } members</span>
             </div>
           </div>
-          <button className="text-sm text-gray-500">See All &rarr;</button>
         </div>
         
         <div className="space-y-4">
-          {teamActivities.map((activity, index) => (
+          {displayedTeam.map((activity, index) => (
             <div key={index} className="flex gap-3 pb-4 border-b border-gray-100 last:border-0">
 
               <div className="flex-1">
                 <div className="flex justify-between">
-                  <h4 className="font-medium text-gray-900">{activity.memberName}</h4>
-                  <button>
-                    <MoreHorizontal size={16} className="text-gray-400" />
-                  </button>
+                  <h4 className="font-medium text-gray-900">{activity.FirstName} {activity.LastName}</h4>
                 </div>
-                <p className="text-sm text-gray-700">{activity.activity}</p>
+                <p className="text-sm text-gray-700">{activity.allActivities[0]?.userInput}</p>
                 <div className="flex items-center text-xs text-gray-500 mt-1">
                   <Clock size={12} className="mr-1" />
-                  <span>{activity.time}</span>
+                  <span>{activity.allActivities[0]?.lastUpdated}</span>
                 </div>
                 <div className="flex gap-4 mt-2">
                   <div className="flex items-center text-xs text-gray-600">
-                    <Footprints size={12} className="mr-1 text-purple-500" />
-                    <span>{activity.steps.toLocaleString()} steps</span>
+                    <Award size={12} className="mr-1 text-purple-500" />
+                    <span>{activity.allActivities[0]?.totalPoints} points</span>
                   </div>
                   <div className="flex items-center text-xs text-gray-600">
-                    <Award size={12} className="mr-1 text-green-500" />
-                    <span>{activity.calories} kcal</span>
+                    <Hourglass size={12} className="mr-1 text-green-500" />
+                    <span>{activity.allActivities[0]?.totalTime} minutes</span>
                   </div>
                 </div>
               </div>
             </div>
           ))}
+					
         </div>
+				<button 
+        className="mt-4 text-sm text-black flex items-center justify-center w-full"
+        onClick={() => setShowAllTeams(!showAllTeams)}
+      >
+        <span>{showAllTeams ? "Show Less" : "See All Teams"}</span>
+        <ChevronDown 
+          size={16} 
+          className={`transition-transform duration-200 ${showAllTeams ? 'rotate-180' : ''}`}
+        />
+      </button>
       </div>
   );
 }
