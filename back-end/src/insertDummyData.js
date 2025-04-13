@@ -17,8 +17,8 @@ try {
     // Only delete if tables exist
     if (checkTables.length > 0) {
         db.exec(`
+            DROP TABLE IF EXISTS UserActivity;
             DELETE FROM UserMilestones;
-            DELETE FROM UserActivity;
             DELETE FROM Milestones;
             DELETE FROM Team;
             DELETE FROM User;
@@ -157,15 +157,29 @@ try {
     insertMilestone.run(3, 1, 'Gold Heart', 'Complete 750 minutes of activity', 750);
     insertMilestone.run(4, 1, 'Platinum Heart', 'Complete 1000 minutes of activity', 1000);
 
+    // Recreate UserActivity table with new schema
+    db.exec(`
+        CREATE TABLE UserActivity (
+            UserActivityID INTEGER PRIMARY KEY,
+            UserID INTEGER NOT NULL,
+            CompetitionID INTEGER NOT NULL,
+            UserInput TEXT NOT NULL,
+            TotalTime INTEGER NOT NULL DEFAULT 0,
+            TotalPoints INTEGER NOT NULL DEFAULT 0,
+            LastUpdated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE,
+            FOREIGN KEY (CompetitionID) REFERENCES Competitions(CompetitionID) ON DELETE CASCADE
+        );
+        CREATE INDEX idx_user_activity_user ON UserActivity(UserID);
+        CREATE INDEX idx_user_activity_competition ON UserActivity(CompetitionID);
+        CREATE INDEX idx_user_activity_user_competition ON UserActivity(UserID, CompetitionID);
+        CREATE INDEX idx_user_activity_totals ON UserActivity(TotalTime, TotalPoints);
+    `);
+
     // 8. Insert User Activity
     const insertUserActivity = db.prepare(`
         INSERT INTO UserActivity (UserActivityID, UserID, CompetitionID, UserInput, TotalTime, TotalPoints)
         VALUES (?, ?, ?, ?, ?, ?)
-        ON CONFLICT(UserID, CompetitionID) DO UPDATE SET
-        UserInput = UserInput || ', ' || excluded.UserInput,
-        TotalTime = TotalTime + excluded.TotalTime,
-        TotalPoints = TotalPoints + excluded.TotalPoints,
-        LastUpdated = CURRENT_TIMESTAMP
     `);
 
     // Generate activity for each user
@@ -193,7 +207,7 @@ try {
 
             insertUserActivity.run(
                 activityId++,
-                user.id, // Keep as TEXT to match User table
+                user.id,
                 1,
                 activity,
                 time,
