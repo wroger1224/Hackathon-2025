@@ -4,14 +4,14 @@ const authMiddleware = require('../middleware/auth');
 
 // GET /community - Get all community data
 router.get('/', authMiddleware, async (req, res) => {
-    console.log('Fetching community data...');
+    // console.log('Fetching community data...');
     try {
         const db = req.app.db;
         
         // Get the active competition
-        console.log('Fetching active competition...');
+        // console.log('Fetching active competition...');
         const activeCompetition = await db.prepare('SELECT * FROM Competitions WHERE Status = ?').get('Active');
-        console.log('Active competition:', activeCompetition);
+        // console.log('Active competition:', activeCompetition);
         
         if (!activeCompetition) {
             console.log('No active competition found');
@@ -19,7 +19,7 @@ router.get('/', authMiddleware, async (req, res) => {
         }
 
         // Get all teams for the active competition
-        console.log('Fetching teams for competition:', activeCompetition.CompetitionID);
+        // console.log('Fetching teams for competition:', activeCompetition.CompetitionID);
         const teams = await db.prepare(`
             SELECT t.*, 
                    COUNT(DISTINCT u.UserID) as memberCount,
@@ -30,11 +30,10 @@ router.get('/', authMiddleware, async (req, res) => {
             WHERE t.CompetitionID = ?
             GROUP BY t.TeamID
         `).all(activeCompetition.CompetitionID, activeCompetition.CompetitionID);
-        console.log('Teams found:', teams.length);
-        console.log('Team details:', teams);
+
 
         // Get all users on the teams with their activity and milestones
-        console.log('Fetching users for teams:', teams.map(team => team.TeamID));
+        // console.log('Fetching users for teams:', teams.map(team => team.TeamID));
         const users = await db.prepare(`
             SELECT 
                 u.UserID,
@@ -66,17 +65,16 @@ router.get('/', authMiddleware, async (req, res) => {
             WHERE u.TeamID IN (${teams.map(() => '?').join(',')})
             GROUP BY u.UserID
         `).all(activeCompetition.CompetitionID, ...teams.map(team => team.TeamID));
-        console.log('Users found:', users.length);
-        console.log('User details:', users);
+        // console.log('Users found:', users.length);
+        // console.log('User details:', users);
 
         // Get all milestones for the active competition
-        console.log('Fetching milestones for competition:', activeCompetition.CompetitionID);
+
         const milestones = await db.prepare(`
             SELECT * FROM Milestones 
             WHERE CompetitionID = ?
         `).all(activeCompetition.CompetitionID);
-        console.log('Milestones found:', milestones.length);
-        console.log('Milestone details:', milestones);
+
 
         const response = {
             competition: {
@@ -88,14 +86,15 @@ router.get('/', authMiddleware, async (req, res) => {
             users,
             milestones
         };
-        console.log('Sending response with:', {
-            totalTeams: response.competition.totalTeams,
-            totalParticipants: response.competition.totalParticipants,
-            teamsCount: response.teams.length,
-            usersCount: response.users.length,
-            milestonesCount: response.milestones.length
-        });
-        console.log('Response:', response);
+        // console.log('Sending response with:', {
+        //     totalTeams: response.competition.totalTeams,
+        //     totalParticipants: response.competition.totalParticipants,
+        //     teamsCount: response.teams.length,
+        //     usersCount: response.users.length,
+        //     milestonesCount: response.milestones.length
+        // });
+        // console.log('Response:', response);
+        console.log('here');
         res.json(response);
     } catch (error) {
         console.error('Error in community route:', error);
