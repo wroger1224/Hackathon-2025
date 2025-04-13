@@ -74,7 +74,7 @@ const Home = () => {
       setTimeout(() => {
         closeModal();
         dispatch(setMotivationalResponse(null));
-      }, 5000);
+      }, 7000);
     }
   }, [motivationalResponse]);
 
