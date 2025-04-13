@@ -77,6 +77,9 @@ const userSlice = createSlice({
 				state.signUpError = action.payload
 				state.loading = false
 			},
+			setMotivationalResponse: (state, action) => {
+				state.motivationalResponse = action.payload
+			},
             addUserActivity: (state, action) => {
                 // the response contains {userData, points, motivationalResponse}
                 console.log(action.payload);
@@ -161,7 +164,8 @@ export const {
 	deleteUserActivity,
 	setUserActivityError,
 	setUserData,
-	setUserDataError
+	setUserDataError,
+	setMotivationalResponse
 } = userSlice.actions
 
 export default userSlice.reducer

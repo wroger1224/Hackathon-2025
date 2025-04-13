@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createUserActivityThunk, updateUserActivityThunk, deleteUserActivityThunk } from "../../../reducers/userSlice";
 
 const WorkoutLog = ({
-	setSuccessMessage
 }) => {
   const dispatch = useDispatch();
   const userData = useSelector(state => state.user.userData);
@@ -12,10 +11,6 @@ const WorkoutLog = ({
   const [formData, setFormData] = useState({
     userInput: "",
   });
-
-  useEffect(() => {
-    // The activities will be loaded from userData.allActivities
-  }, [userData]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,13 +24,11 @@ const WorkoutLog = ({
           }
         })).unwrap();
         setEditingId(null);
-        setSuccessMessage("Workout updated successfully!");
       } else {
         // Add new activity
         await dispatch(createUserActivityThunk({
           userInput: formData.userInput
         })).unwrap();
-        setSuccessMessage("Yay! You've logged a workout!");
       }
       // Reset form
       setFormData({
@@ -113,7 +106,7 @@ const WorkoutLog = ({
               <div className="flex justify-between items-start">
                 <div className="flex-1">
                   <p className="text-sm text-gray-600">
-                    {new Date(activity.lastUpdated).toLocaleDateString()} • {activity.totalTime} minutes
+                    {new Date(activity.lastUpdated).toLocaleDateString()} • {activity.totalPoints} points
                   </p>
                   {editingId === activity.userActivityID ? (
                     <div className="mt-2 space-y-2">
