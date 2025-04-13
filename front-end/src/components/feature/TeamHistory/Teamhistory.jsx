@@ -48,11 +48,7 @@ function TeamMemberActivity() {
         <div className="space-y-4">
           {teamActivities.map((activity, index) => (
             <div key={index} className="flex gap-3 pb-4 border-b border-gray-100 last:border-0">
-              <img 
-                src={activity.avatar} 
-                alt={activity.memberName} 
-                className="w-10 h-10 rounded-full object-cover"
-              />
+
               <div className="flex-1">
                 <div className="flex justify-between">
                   <h4 className="font-medium text-gray-900">{activity.memberName}</h4>

@@ -8,7 +8,6 @@ function TeamLeaderboard() {
       members: 12,
       steps: 148520,
       rank: 1,
-      avatar: "/api/placeholder/40/40",
       color: "bg-amber-500",
     },
     {
@@ -16,7 +15,6 @@ function TeamLeaderboard() {
       members: 8,
       steps: 135680,
       rank: 2,
-      avatar: "/api/placeholder/40/40",
       color: "bg-gray-500",
     },
     {
@@ -24,7 +22,6 @@ function TeamLeaderboard() {
       members: 10,
       steps: 123450,
       rank: 3,
-      avatar: "/api/placeholder/40/40",
       color: "bg-orange-400",
     },
     {
@@ -32,7 +29,6 @@ function TeamLeaderboard() {
       members: 7,
       steps: 115780,
       rank: 4,
-      avatar: "/api/placeholder/40/40",
       color: "bg-gray-300",
     },
     {
@@ -40,13 +36,12 @@ function TeamLeaderboard() {
       members: 9,
       steps: 106200,
       rank: 5,
-      avatar: "/api/placeholder/40/40",
       color: "bg-gray-300",
     },
   ];
 
   return (
-    <div className="w-80 bg-white rounded-3xl p-6 shadow-sm">
+    <div className="bg-white rounded-3xl p-6 shadow-sm">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-lg font-bold text-gray-800">Team Leaderboard</h2>
         <div className="flex gap-2">
@@ -63,16 +58,7 @@ function TeamLeaderboard() {
         {teams.map((team, index) => (
           <div key={index} className="flex items-center gap-3">
             <div className="relative">
-              <img
-                src={team.avatar}
-                className="w-10 h-10 rounded-full"
-                alt={team.name}
-              />
-              <span
-                className={`absolute bottom-0 right-0 w-3 h-3 rounded-full ${team.color} border-2 border-white flex items-center justify-center text-xs text-white font-bold`}
-              >
-                {team.rank <= 3 ? team.rank : ""}
-              </span>
+
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex justify-between items-center">
@@ -88,7 +74,7 @@ function TeamLeaderboard() {
               </p>
             </div>
             {team.rank === 1 && (
-              <div className="w-6 h-6 bg-amber-500 text-white rounded-full flex items-center justify-center text-xs">
+              <div className="align-start w-6 h-6 bg-amber-500 text-white rounded-full flex items-center justify-center text-xs">
                 <Trophy size={12} />
               </div>
             )}

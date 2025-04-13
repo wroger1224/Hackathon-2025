@@ -17,24 +17,30 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-sm px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-      <img
-        src="./assets/0-Primary-Logo.png"
-        alt="Logo"
-        className="primary-logo"
-      />
-      <div className="flex items-center gap-8">
-        <Navbar />
-        <Button
-          onClick={handleSignOut}
-          variant="secondary"
-          id="sign-out-button"
-          className="bg-red-orange text-white mr-4 px-4 py-2 rounded-md"
-        >
-          Sign Out
-        </Button>
-      </div>
-    </header>
+    <>
+      <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
+        <div className="w-full px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between overflow-x-auto">
+          <img
+            src="./assets/0-Primary-Logo.png"
+            alt="Logo"
+            className="primary-logo"
+          />
+          <div className="flex items-center gap-8">
+            <Navbar onSignOut={handleSignOut} />
+            <Button
+              onClick={handleSignOut}
+              variant="secondary"
+              id="sign-out-button"
+              className="bg-red-orange text-white px-4 py-2 rounded-md whitespace-nowrap min-[483px]:block hidden"
+            >
+              Sign Out
+            </Button>
+          </div>
+        </div>
+      </header>
+      {/* Spacer div to prevent content from being hidden under header */}
+      <div className="h-[1px]" />
+    </>
   );
 };
 

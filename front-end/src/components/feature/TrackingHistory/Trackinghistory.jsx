@@ -6,13 +6,13 @@ function TrackingHistory() {
 
   // Chart data with dates and activity minutes
   const chartData = [
-    { date: "04/06", minutes: 22, steps: 1800 },
-    { date: "04/07", minutes: 18, steps: 1500 },
-    { date: "04/08", minutes: 25, steps: 2100 },
-    { date: "04/09", minutes: 35, steps: 2800 },
-    { date: "04/10", minutes: 28, steps: 2300 },
-    { date: "04/11", minutes: 15, steps: 1200 },
-    { date: "04/12", minutes: 30, steps: 2500 },
+    { date: "04/06", minutes: 45, steps: 5800 },
+    { date: "04/07", minutes: 30, steps: 4500 },
+    { date: "04/08", minutes: 60, steps: 7100 },
+    { date: "04/09", minutes: 75, steps: 8800 },
+    { date: "04/10", minutes: 55, steps: 6300 },
+    { date: "04/11", minutes: 25, steps: 3200 },
+    { date: "04/12", minutes: 50, steps: 6500 },
   ];
 
   // Calculate max values for scaling
@@ -51,27 +51,26 @@ function TrackingHistory() {
         </div>
 
         {/* Bar Chart */}
-        <div className="flex items-end justify-between h-64 gap-6 pl-12 pr-4 pt-4">
+        <div className="flex items-end justify-between h-64 gap-2 pl-12 pr-4 pt-4 mt-4">
           {chartData.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col items-center group relative flex-1"
+              className="flex flex-col items-center group relative"
+              style={{ width: "40px" }}
             >
               {/* Bar */}
               <div
-                className={`w-full rounded-t-md transition-all hover:opacity-80 ${
-                  index === 3 ? "bg-orange" : "bg-blue"
-                } relative`}
+                className={`rounded-t-md transition-all hover:opacity-80 ${
+                  index === 3 ? "bg-[#FF9500]" : "bg-[#3B82F6]"
+                }`}
                 style={{
-                  height: `${(item.minutes / roundedMaxMinutes) * 100}%`,
-                  minHeight: "4px",
-                  maxWidth: "48px",
-                  margin: "0 auto",
+                  height: `${(item.minutes / roundedMaxMinutes) * 240}px`,
+                  width: "24px",
                 }}
               >
                 {/* Tooltip */}
-                <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <div className="bg-black text-white rounded-md px-3 py-2 text-xs shadow-lg">
+                <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                  <div className="bg-black text-white rounded-md px-3 py-2 text-xs shadow-lg whitespace-nowrap">
                     <div className="flex items-center mb-1">
                       <Clock size={12} className="mr-1" />
                       <span>{item.minutes} minutes</span>

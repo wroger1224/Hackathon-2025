@@ -181,7 +181,7 @@ const Milestones = () => {
 					<div className="flex-1">
 						<div className="flex items-center justify-between mb-2">
 							<div className="flex items-center gap-2">
-								<h3 className="text-sm font-semibold text-gray-700">Milestone {progressData.nextMilestone.MilestoneID}</h3>
+								<h2 className="text-sm font-semibold text-gray-700">Milestone {progressData.nextMilestone.MilestoneID}</h2>
 								<span className="text-xs text-gray-500">({progressData.nextMilestone.MilestoneTime}m goal)</span>
 							</div>
 							<span className="text-xs text-gray-500">{progressData.progress.toFixed(1)}%</span>
