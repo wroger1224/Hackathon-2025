@@ -1,9 +1,17 @@
 # Hackathon-2025
 ## Usage
 ```
+/back-end/.env
+OPENAI_API_KEY=<YOUR API KEY>
+
+/back-end/firebase.json
+<Get File From Firebase Console>
+
 /back-end
+$ npm install
 $ npm run dev
 ```
+
 ```
 /front-end
 $ npm install
