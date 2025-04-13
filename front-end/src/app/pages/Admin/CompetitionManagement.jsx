@@ -38,11 +38,13 @@ const CompetitionManagement = () => {
         (comp) => comp.CompetitionID === parseInt(competitionId)
       );
       if (foundCompetition) {
+        const competitionTeams = teams.filter(
+          (team) => team.CompetitionID === foundCompetition.CompetitionID
+        );
+        console.log("Competition Teams:", competitionTeams); // Debug log
         setCompetition({
           ...foundCompetition,
-          teams: teams.filter(
-            (team) => team.CompetitionID === foundCompetition.CompetitionID
-          ),
+          teams: competitionTeams,
         });
       }
     }
@@ -538,35 +540,70 @@ const CompetitionManagement = () => {
                     </div>
                   </div>
                 ) : (
-                  <>
+                  <div className="space-y-2">
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="text-lg font-semibold">
-                          {team.TeamName}
-                        </h3>
+                        <h3 className="font-bold text-lg">{team.TeamName}</h3>
                         <p className="text-sm text-gray-600">
-                          Captain: {team.TeamCaptain?.FirstName}{" "}
-                          {team.TeamCaptain?.LastName}
+                          Captain:{" "}
+                          {team.members?.find((m) => m.IsCaptain)?.FirstName}{" "}
+                          {team.members?.find((m) => m.IsCaptain)?.LastName}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          Members: {team.members?.length || 0}
                         </p>
                       </div>
-                      <button
-                        onClick={() => handleEditTeam(team)}
-                        className="text-blue-500 hover:text-blue-700"
-                      >
-                        Edit
-                      </button>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleEditTeam(team)}
+                          className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() =>
+                            console.log(
+                              `Sending report for team ${team.TeamName}`
+                            )
+                          }
+                          className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 flex items-center gap-1"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                            />
+                          </svg>
+                          Send Report
+                        </button>
+                      </div>
                     </div>
                     <div className="mt-2">
-                      <p className="text-sm font-medium">Members:</p>
+                      <h4 className="text-sm font-semibold text-gray-700">
+                        Team Members:
+                      </h4>
                       <ul className="list-disc list-inside text-sm text-gray-600">
                         {team.members?.map((member) => (
                           <li key={member.UserID}>
                             {member.FirstName} {member.LastName}
+                            {member.IsCaptain && (
+                              <span className="ml-1 text-xs bg-blue-100 text-blue-800 px-1 rounded">
+                                Captain
+                              </span>
+                            )}
                           </li>
                         ))}
                       </ul>
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
             ))}
