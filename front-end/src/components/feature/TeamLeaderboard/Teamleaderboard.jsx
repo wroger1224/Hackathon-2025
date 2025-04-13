@@ -8,7 +8,7 @@ function TeamLeaderboard() {
 	const { teams: team } = useSelector((state) => state.community);
 	
 	// Sort teams by points in descending order
-	const sortedTeam = [...team].sort((a, b) => b.Points - a.Points);
+	const sortedTeam = [...team].sort((a, b) => b.totalTeamPoints - a.totalTeamPoints);
 	// Show only top 3 teams by default, or all teams when expanded
 	const displayedTeams = showAllTeams ? sortedTeam : sortedTeam.slice(0, 3);
 
