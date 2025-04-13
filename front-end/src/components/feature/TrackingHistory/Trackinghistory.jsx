@@ -24,7 +24,7 @@ function TrackingHistory() {
       <div className="flex justify-between items-start mb-6">
         <div>
           <h2 className="text-lg font-bold text-gray-800">Activity Tracking</h2>
-          <p className="text-sm text-gray-500">Daily activity in minutes</p>
+          <p className="text-sm text-gray-500">Daily activity in moints</p>
         </div>
 
         <button className="flex items-center gap-1 bg-gray-100 px-3 py-1 rounded-md text-sm">
@@ -36,11 +36,11 @@ function TrackingHistory() {
       <div className="relative h-80">
         {/* Y-axis labels (time in minutes) */}
         <div className="absolute left-0 top-4 h-64 flex flex-col justify-between text-xs text-gray-400">
-          <span>{roundedMaxMinutes} min</span>
-          <span>{Math.floor(roundedMaxMinutes * 0.75)} min</span>
-          <span>{Math.floor(roundedMaxMinutes * 0.5)} min</span>
-          <span>{Math.floor(roundedMaxMinutes * 0.25)} min</span>
-          <span>0 min</span>
+          <span>{roundedMaxMinutes} moints</span>
+          <span>{Math.floor(roundedMaxMinutes * 0.75)} mnts</span>
+          <span>{Math.floor(roundedMaxMinutes * 0.5)} mnts</span>
+          <span>{Math.floor(roundedMaxMinutes * 0.25)} mnts</span>
+          <span>0 moints</span>
         </div>
 
         {/* Horizontal grid lines */}
@@ -73,11 +73,11 @@ function TrackingHistory() {
                   <div className="bg-black text-white rounded-md px-3 py-2 text-xs shadow-lg whitespace-nowrap">
                     <div className="flex items-center mb-1">
                       <Clock size={12} className="mr-1" />
-                      <span>{item.minutes} minutes</span>
+                      <span>{item.minutes} moints</span>
                     </div>
                     <div className="flex items-center">
                       <Footprints size={12} className="mr-1" />
-                      <span>{item.steps} steps</span>
+                      <span>{item.steps} minutes</span>
                     </div>
                   </div>
                 </div>
@@ -98,19 +98,19 @@ function TrackingHistory() {
                 chartData.reduce((sum, item) => sum + item.minutes, 0) /
                   chartData.length
               )}{" "}
-              min
+              mnts
             </p>
           </div>
           <div className="text-center">
             <p className="text-xs text-gray-500">Top Day</p>
             <p className="font-bold text-gray-800">
-              {Math.max(...chartData.map((item) => item.minutes))} min
+              {Math.max(...chartData.map((item) => item.minutes))} mnts
             </p>
           </div>
           <div className="text-center">
             <p className="text-xs text-gray-500">Weekly Total</p>
             <p className="font-bold text-gray-800">
-              {chartData.reduce((sum, item) => sum + item.minutes, 0)} min
+              {chartData.reduce((sum, item) => sum + item.minutes, 0)} mnts
             </p>
           </div>
         </div>
