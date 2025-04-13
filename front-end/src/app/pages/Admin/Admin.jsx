@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useState } from "react";
 import { mockUsers, mockCompetitions } from "../../../data/mockData";
 import { Link } from "react-router-dom";
 import "../../../index.css";
