@@ -56,9 +56,6 @@ const Home = () => {
         <TrackingHistory />
         <TeamLeaderboard />
         <TeamMemberActivity />
-        <Widget>
-          <h3 className="text-xl font-semibold mb-4">Team</h3>
-        </Widget>
 
         <Widget>
           <h3 className="text-xl font-semibold mb-4">Add Workout</h3>
@@ -80,18 +77,14 @@ const Home = () => {
           <WorkoutLog />
         </Widget>
 
-        <Widget>
-          <h3 className="text-xl font-semibold mb-4">Stats</h3>
-          <p>Your workout statistics will appear here</p>
-        </Widget>
 
         <Widget className="md:col-span-2 lg:col-span-3">
           <h3 className="text-xl font-semibold mb-4">Activity Timeline</h3>
           <p>Your recent activities will appear here</p>
         </Widget>
       </div>
-      //Component inspired by Kevin Levron:
-      //https://x.com/soju22/status/1858925191671271801
+      {/*Component inspired by Kevin Levron:
+      https://x.com/soju22/status/1858925191671271801 */}
       <div
         style={{
           position: "relative",
@@ -102,13 +95,14 @@ const Home = () => {
         }}
       >
         <Ballpit
-          count={200}
+          count={150}
           gravity={0.7}
           friction={0.8}
           wallBounce={0.95}
           followCursor={true}
           colors={["#ff5c4d", "#ff9636", "#ffcd58", "#dad870", "#38b1f6"]}
           lightIntensity={100}
+          height={500}
         />
       </div>
     </main>

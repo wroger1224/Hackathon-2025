@@ -47,7 +47,7 @@ const WorkoutLog = () => {
   return (
     <div className="p-4">
       <form onSubmit={handleSubmit} className="space-y-4 mb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Date</label>
             <input
@@ -102,7 +102,7 @@ const WorkoutLog = () => {
               <option value="high">High</option>
             </select>
           </div>
-        </div>
+        </div> */}
         <div>
           <label className="block text-sm font-medium mb-1">Notes</label>
           <textarea

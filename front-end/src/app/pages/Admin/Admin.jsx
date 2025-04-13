@@ -51,12 +51,12 @@ const Admin = () => {
     }
 
     return (
-        <div className="p-6">
+        <div className="p-6 bg-white">
             <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
             <p className="mb-4">Welcome, {user?.email}</p>
 
             {/* Create Competition Form */}
-            <div className="mb-8 p-4 border rounded">
+            <div id="create-competition-form" className="mb-8 p-4 border rounded bg-white shadow-md">
                 <h2 className="text-xl font-bold mb-4">Create New Competition</h2>
                 <div className="space-y-4">
                     <div>
@@ -122,7 +122,7 @@ const Admin = () => {
 
                     <button
                         onClick={handleCreateCompetition}
-                        className="bg-blue-500 text-white px-4 py-2 rounded"
+                        className="bg-orange text-white px-4 py-2 rounded"
                     >
                         Create Competition
                     </button>
@@ -136,7 +136,7 @@ const Admin = () => {
                     {competitions.map((competition) => (
                         <div
                             key={competition.CompetitionID}
-                            className={`p-4 border rounded ${competition.Status === 'Active' ? 'bg-blue-50' : ''}`}
+                            className={`p-4 border rounded bg-white shadow-md ${competition.Status === 'Active' ? 'bg-blue-50' : ''}`}
                         >
                             <div className="flex justify-between items-start">
                                 <div>
