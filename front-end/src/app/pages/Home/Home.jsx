@@ -25,10 +25,22 @@ import TrackingHistory from "../../../components/feature/TrackingHistory/Trackin
 import TeamLeaderboard from "../../../components/feature/TeamLeaderboard/Teamleaderboard";
 import TeamMemberActivity from "../../../components/feature/TeamHistory/Teamhistory";
 const Home = () => {
-  const { user } = useSelector((state) => state.user);
-  console.log(user);
-  const { profile } = useSelector((state) => state.userProfile);
-  console.log(profile);
+	const dispatch = useDispatch();
+	const { user } = useSelector((state) => state.user);
+	const { profile } = useSelector((state) => state.userProfile);
+	const { competition, teams, users, milestones, status, error } = useSelector((state) => state.community);
+
+	useEffect(() => {
+		dispatch(fetchCommunityData());
+	}, [dispatch]);
+
+	if (status === 'loading') {
+		return <div>Loading community data...</div>;
+	}
+
+	if (status === 'failed') {
+		return <div>Error loading community data: {error}</div>;
+	}
 
   return (
     <main id="home-main">
