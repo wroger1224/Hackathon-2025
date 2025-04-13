@@ -106,7 +106,7 @@ const WorkoutLog = ({
               <div className="flex justify-between items-start">
                 <div className="flex-1">
                   <p className="text-sm text-gray-600">
-                    {new Date(activity.lastUpdated).toLocaleDateString()} • {activity.totalPoints} points
+                    {new Date(activity.lastUpdated).toLocaleDateString()} • {activity.totalPoints} moints
                   </p>
                   {editingId === activity.userActivityID ? (
                     <div className="mt-2 space-y-2">

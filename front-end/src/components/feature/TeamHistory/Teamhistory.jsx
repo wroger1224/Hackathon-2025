@@ -57,7 +57,7 @@ function TeamMemberActivity() {
                 <div className="flex gap-4 mt-2">
                   <div className="flex items-center text-xs text-gray-600">
                     <Award size={12} className="mr-1 text-purple-500" />
-                    <span>{activity.totalPoints} points</span>
+                    <span>{activity.totalPoints} moints</span>
                   </div>
                   <div className="flex items-center text-xs text-gray-600">
                     <Hourglass size={12} className="mr-1 text-green-500" />
