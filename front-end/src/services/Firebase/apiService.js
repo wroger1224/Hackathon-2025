@@ -102,6 +102,9 @@ export const userProfileApi = {
     },
 
     createUserProfile: async (profile) => {
+			console.log(profile);
+			const { headers } = await getHeaders(true)
+			console.log(headers)
         const response = await fetch(`${API_BASE_URL}/user/profile`, {
             method: 'POST',
             headers: await getHeaders(),

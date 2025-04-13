@@ -24,13 +24,13 @@ const CreateProfile = () => {
 	
 	const handleChange = (event) => {
 		const { name, value } = event.target;
-		setProfile({ ...profile, [name]: value });
+		setNewProfile({ ...newProfile, [name]: value });
 	}
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			await dispatch(createUserProfile(profile)).unwrap();
+			await dispatch(createUserProfile(newProfile)).unwrap();
 			navigate('/');
 		} catch (error) {
 			console.error('Error updating profile:', error);
@@ -56,13 +56,6 @@ const CreateProfile = () => {
 						label="Last Name"
 						name="lastName"
 						value={newProfile.lastName}
-						onChange={handleChange}
-						required
-					/>
-					<Input
-						label="Email"
-						name="email"
-						value={newProfile.email}
 						onChange={handleChange}
 						required
 					/>
@@ -105,9 +98,9 @@ const CreateProfile = () => {
 							required
 						>
 							<option value="">Select an activity level</option>
-							<option value="sedentary">Sedentary</option>
-							<option value="moderatelyActive">Moderately Active</option>
-							<option value="veryActive">Very Active</option>
+							<option value="Sedentary">Sedentary</option>
+							<option value="Moderate">Moderately Active</option>
+							<option value="High">Very Active</option>
 						</select>
 					</div>
 	
