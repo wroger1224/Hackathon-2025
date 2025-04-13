@@ -27,18 +27,6 @@ function TeamLeaderboard() {
 					} = team;
 					return (
 						<div key={index} className="flex items-center gap-3">
-							<div className="relative">
-								<img
-									src={'/api/placeholder/40/40'}
-									className="w-10 h-10 rounded-full"
-									alt={TeamName}
-								/>
-								<span
-									className={`absolute bottom-0 right-0 w-3 h-3 rounded-full text-black border-2 border-white flex items-center justify-center text-xs text-black font-bold`}
-								>
-									{index <= 3 ? index : ""}
-								</span>
-							</div>
 							<div className="flex-1 min-w-0">
 								<div className="flex justify-between items-center">
 									<h4 className="font-medium text-sm text-black truncate">
