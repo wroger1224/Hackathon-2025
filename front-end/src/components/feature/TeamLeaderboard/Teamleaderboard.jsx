@@ -33,7 +33,7 @@ function TeamLeaderboard() {
 										{TeamName}
 									</h4>
 									<span className="text-xs font-medium text-black">
-										{ totalTeamPoints } Points
+										{ totalTeamPoints } Moints
 									</span>
 								</div>
 								<p className="text-xs text-black truncate">
