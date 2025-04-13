@@ -24,6 +24,7 @@ Log your activity in text form. No watches. No Syncing. Just Competition with Fr
 See you activity day-by-day. Rack up Moints!
 ### AI Assisted Activity Logging
 Input unstructed activities and the AI will assign you Moints based on your profile's activity status and the difficulty level of the specific activity.
+### Firebase Auth (Signin with Google)
 ### AI Generated Congrats Message
 The AI will encourage and ammuse you when you log your activity.
 ### A Ball Pit :tada:
@@ -36,6 +37,10 @@ The AI will encourage and ammuse you when you log your activity.
 - Set up teams
 - Edit teams
 - Reports for activity
-### Aditional Features Still Under Construction
+## Aditional Features Still Under Construction
 - Slack integration
 - Weekly MAXX Values
+## Tech Stack
+- React Frontend
+- ExpressJS Backend
+- OpenAI
