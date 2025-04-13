@@ -1,99 +1,95 @@
 import { ChevronDown, Trophy, Users } from "lucide-react";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
 // NEW TEAM LEADERBOARD COMPONENT
 function TeamLeaderboard() {
-  const teams = [
-    {
-      name: "Road Runners",
-      members: 12,
-      steps: 148520,
-      rank: 1,
-      color: "bg-amber-500",
-    },
-    {
-      name: "Pace Makers",
-      members: 8,
-      steps: 135680,
-      rank: 2,
-      color: "bg-gray-500",
-    },
-    {
-      name: "Trail Blazers",
-      members: 10,
-      steps: 123450,
-      rank: 3,
-      color: "bg-orange-400",
-    },
-    {
-      name: "Sprint Stars",
-      members: 7,
-      steps: 115780,
-      rank: 4,
-      color: "bg-gray-300",
-    },
-    {
-      name: "Marathon Masters",
-      members: 9,
-      steps: 106200,
-      rank: 5,
-      color: "bg-gray-300",
-    },
-  ];
+	const [showAllTeams, setShowAllTeams] = useState(false);
+	const { teams: team } = useSelector((state) => state.community);
+	
+	// Sort teams by points in descending order
+	const sortedTeam = [...team].sort((a, b) => b.Points - a.Points);
+	// Show only top 3 teams by default, or all teams when expanded
+	const displayedTeams = showAllTeams ? sortedTeam : sortedTeam.slice(0, 3);
 
   return (
     <div className="bg-white rounded-3xl p-6 shadow-sm">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-lg font-bold text-gray-800">Team Leaderboard</h2>
+        <h2 className="text-lg font-bold text-black">Team Leaderboard</h2>
         <div className="flex gap-2">
-          <button className="p-1 text-gray-500 hover:bg-gray-100 rounded">
+          <button className="p-1 text-black hover:bg-gray-100 rounded">
             <Trophy size={18} />
           </button>
-          <button className="p-1 text-gray-500 hover:bg-gray-100 rounded">
+          <button className="p-1 text-black hover:bg-gray-100 rounded">
             <Users size={18} />
           </button>
         </div>
       </div>
 
       <div className="space-y-4">
-        {teams.map((team, index) => (
-          <div key={index} className="flex items-center gap-3">
-            <div className="relative">
-
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex justify-between items-center">
-                <h4 className="font-medium text-sm text-gray-900 truncate">
-                  {team.name}
-                </h4>
-                <span className="text-xs font-medium text-green-500">
-                  {team.steps.toLocaleString()} steps
-                </span>
-              </div>
-              <p className="text-xs text-gray-500 truncate">
-                {team.members} members
-              </p>
-            </div>
-            {team.rank === 1 && (
-              <div className="align-start w-6 h-6 bg-amber-500 text-white rounded-full flex items-center justify-center text-xs">
-                <Trophy size={12} />
-              </div>
-            )}
-            {team.rank > 1 && (
-              <div
-                className={`w-5 h-5 ${
-                  team.rank <= 3 ? team.color : "bg-gray-200"
-                } rounded-full flex items-center justify-center text-xs text-white font-medium`}
-              >
-                {team.rank}
-              </div>
-            )}
-          </div>
-        ))}
+        {displayedTeams.map((team, index) => {
+					const {
+						CompetitionID,
+						Points,
+						TeamCaptain,
+						TeamID,
+						TeamName,
+						memberCount,
+						totalTeamPoints
+					} = team;
+					return (
+						<div key={index} className="flex items-center gap-3">
+							<div className="relative">
+								<img
+									src={'/api/placeholder/40/40'}
+									className="w-10 h-10 rounded-full"
+									alt={TeamName}
+								/>
+								<span
+									className={`absolute bottom-0 right-0 w-3 h-3 rounded-full text-black border-2 border-white flex items-center justify-center text-xs text-black font-bold`}
+								>
+									{index <= 3 ? index : ""}
+								</span>
+							</div>
+							<div className="flex-1 min-w-0">
+								<div className="flex justify-between items-center">
+									<h4 className="font-medium text-sm text-black truncate">
+										{TeamName}
+									</h4>
+									<span className="text-xs font-medium text-black">
+										{ Points } Points
+									</span>
+								</div>
+								<p className="text-xs text-black truncate">
+									{memberCount} members
+								</p>
+							</div>
+							{index === 0 && (
+								<div className="w-6 h-6 bg-amber-500 text-black rounded-full flex items-center justify-center text-xs">
+									<Trophy size={12} />
+								</div>
+							)}
+							{index > 0 && (
+								<div
+									className={`w-5 h-5 rounded-full flex items-center justify-center text-xs text-black font-medium`}
+								>
+									{index + 1}
+								</div>
+							)}
+						</div>
+					)
+        })}
       </div>
 
-      <button className="mt-4 text-sm text-gray-500 flex items-center justify-center w-full">
-        <span>See All Teams</span>
-        <ChevronDown size={16} />
+      <button 
+        className="mt-4 text-sm text-black flex items-center justify-center w-full"
+        onClick={() => setShowAllTeams(!showAllTeams)}
+      >
+        <span>{showAllTeams ? "Show Less" : "See All Teams"}</span>
+        <ChevronDown 
+          size={16} 
+          className={`transition-transform duration-200 ${showAllTeams ? 'rotate-180' : ''}`}
+        />
       </button>
     </div>
   );

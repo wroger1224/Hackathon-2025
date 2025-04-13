@@ -83,6 +83,7 @@ router.get('/', authMiddleware, async (req, res) => {
             usersCount: response.users.length,
             milestonesCount: response.milestones.length
         });
+        console.log('Response:', response);
         res.json(response);
     } catch (error) {
         console.error('Error in community route:', error);
