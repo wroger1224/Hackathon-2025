@@ -44,26 +44,29 @@ function TrackingHistory() {
         </div>
 
         {/* Horizontal grid lines */}
-        <div className="absolute left-8 right-0 top-4 h-64 flex flex-col justify-between">
+        <div className="absolute left-12 right-4 top-4 h-64 flex flex-col justify-between">
           {[0, 1, 2, 3, 4].map((idx) => (
             <div key={idx} className="border-t border-gray-100 w-full"></div>
           ))}
         </div>
 
         {/* Bar Chart */}
-        <div className="flex items-end justify-between h-64 gap-3 pl-8 pt-4">
+        <div className="flex items-end justify-between h-64 gap-6 pl-12 pr-4 pt-4">
           {chartData.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col items-center group relative"
+              className="flex flex-col items-center group relative flex-1"
             >
               {/* Bar */}
               <div
-                className={`w-12 rounded-t-md ${
-                  index === 3 ? "bg-amber-400" : "bg-blue-500"
+                className={`w-full rounded-t-md transition-all hover:opacity-80 ${
+                  index === 3 ? "bg-orange" : "bg-blue"
                 } relative`}
                 style={{
                   height: `${(item.minutes / roundedMaxMinutes) * 100}%`,
+                  minHeight: "4px",
+                  maxWidth: "48px",
+                  margin: "0 auto",
                 }}
               >
                 {/* Tooltip */}

@@ -30,10 +30,13 @@ const getHeaders = async (includeAuth = true) => {
 // Community API calls
 export const communityApi = {
     fetchCommunityData: async () => {
+        console.log('Fetching community data');
         const response = await fetch(`${API_BASE_URL}/community`, {
             headers: await getHeaders()
         });
-        return handleResponse(response);
+        console.log('Response:', response);
+        const data = await handleResponse(response);
+        return data;
     }
 };
 
@@ -43,7 +46,8 @@ export const adminApi = {
         const response = await fetch(`${API_BASE_URL}/admin/initial-data`, {
             headers: await getHeaders()
         });
-        return handleResponse(response);
+        const data = await handleResponse(response);
+        return data;
     },
 
     createCompetition: async (competition) => {
@@ -52,7 +56,8 @@ export const adminApi = {
             headers: await getHeaders(),
             body: JSON.stringify(competition)
         });
-        return handleResponse(response);
+        const data = await handleResponse(response);
+        return data;
     },
 
     createTeam: async (teamData) => {
@@ -61,7 +66,8 @@ export const adminApi = {
             headers: await getHeaders(),
             body: JSON.stringify(teamData)
         });
-        return handleResponse(response);
+        const data = await handleResponse(response);
+        return data;
     },
 
     updateTeam: async (teamId, action, memberId) => {
@@ -70,7 +76,8 @@ export const adminApi = {
             headers: await getHeaders(),
             body: JSON.stringify({ action, memberId })
         });
-        return handleResponse(response);
+        const data = await handleResponse(response);
+        return data;
     },
 
     updateCompetition: async (competitionId, competitionData) => {
@@ -79,7 +86,8 @@ export const adminApi = {
             headers: await getHeaders(),
             body: JSON.stringify(competitionData)
         });
-        return handleResponse(response);
+        const data = await handleResponse(response);
+        return data;
     }
 };
 
@@ -89,7 +97,8 @@ export const userProfileApi = {
         const response = await fetch(`${API_BASE_URL}/user/profile/${userId}`, {
             headers: await getHeaders()
         });
-        return handleResponse(response);
+        const data = await handleResponse(response);
+        return data;
     },
 
     updateUserProfile: async (userId, profile) => {
@@ -98,18 +107,17 @@ export const userProfileApi = {
             headers: await getHeaders(),
             body: JSON.stringify(profile)
         });
-        return handleResponse(response);
+        const data = await handleResponse(response);
+        return data;
     },
 
     createUserProfile: async (profile) => {
-			console.log(profile);
-			const { headers } = await getHeaders(true)
-			console.log(headers)
         const response = await fetch(`${API_BASE_URL}/user/profile`, {
             method: 'POST',
             headers: await getHeaders(),
             body: JSON.stringify(profile)
         });
-        return handleResponse(response);
+        const data = await handleResponse(response);
+        return data;
     }
 };
