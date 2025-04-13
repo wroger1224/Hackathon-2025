@@ -28,38 +28,38 @@ import Ballpit from "../../../components/feature/FunStuff/Ballpit";
 import { fetchCommunityData } from "../../../reducers/communitySlice";
 import { fetchUserDataThunk } from "../../../reducers/userSlice";
 import { useEffect, useState } from "react";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import Badges from "../../../components/feature/Badges/Badges";
 const Home = () => {
-	const dispatch = useDispatch();
-	const { user } = useSelector((state) => state.user);
-	console.log(user);
-	const { profile } = useSelector((state) => state.userProfile);
-	console.log(profile);
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+  console.log(user);
+  const { profile } = useSelector((state) => state.userProfile);
+  console.log(profile);
 
-	const [successMessage, setSuccessMessage] = useState(null);
-	const [modalIsOpen, setModalIsOpen] = useState(false);
-    
-	function openModal() {
-		setModalIsOpen(true);
-	}
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
-	function closeModal() {
-		setModalIsOpen(false);
-	}
+  function openModal() {
+    setModalIsOpen(true);
+  }
 
-	useEffect(() => {
-		if (successMessage) {
-			setTimeout(() => {
-				openModal();
-			}, 1000);
+  function closeModal() {
+    setModalIsOpen(false);
+  }
 
-			setTimeout(() => {
-				closeModal();
-				setSuccessMessage(null);
-			}, 4000);
-		}
-	}, [successMessage]);
+  useEffect(() => {
+    if (successMessage) {
+      setTimeout(() => {
+        openModal();
+      }, 1000);
+
+      setTimeout(() => {
+        closeModal();
+        setSuccessMessage(null);
+      }, 4000);
+    }
+  }, [successMessage]);
 
   useEffect(() => {
     dispatch(fetchCommunityData());
@@ -86,7 +86,7 @@ const Home = () => {
 
             <Widget className="lg:col-span-2">
               <h2 className="text-xl font-semibold mb-4">Workout Log</h2>
-              <WorkoutLog setSuccessMessage={setSuccessMessage}/>
+              <WorkoutLog setSuccessMessage={setSuccessMessage} />
             </Widget>
 
             <TeamLeaderboard />
@@ -97,17 +97,17 @@ const Home = () => {
               <h2 className="text-xl font-semibold mb-4">Badges</h2>
               <Badges />
             </Widget>
-						<Modal
-							isOpen={modalIsOpen}
-							onRequestClose={closeModal}
-							contentLabel="Example Modal"
-						>
-							<h2>Modal Title</h2>
-							<button onClick={closeModal}>Close</button>
-							<div>{ successMessage }</div>
-          	</Modal>
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              contentLabel="Example Modal"
+            >
+              <h2>Modal Title</h2>
+              <button onClick={closeModal}>Close</button>
+              <div>{successMessage}</div>
+            </Modal>
+          </div>
         </div>
-			</div>
       </main>
 
       {/* Ballpit overlay */}
@@ -118,20 +118,20 @@ const Home = () => {
           left: 0,
           right: 0,
           width: "100vw",
-          height: "700px",
+          height: "500px",
           zIndex: 9999,
           pointerEvents: "none",
           overflow: "hidden",
         }}
       >
         <Ballpit
-          count={150}
+          count={100}
           gravity={0.7}
           friction={0.8}
           wallBounce={0.95}
           followCursor={true}
           colors={["#ff5c4d", "#ff9636", "#ffcd58", "#dad870", "#38b1f6"]}
-          lightIntensity={100}
+          lightIntensity={50}
         />
       </div>
     </div>
