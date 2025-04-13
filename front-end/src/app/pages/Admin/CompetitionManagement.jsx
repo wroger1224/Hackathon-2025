@@ -190,18 +190,19 @@ const CompetitionManagement = () => {
 
     return (
         <div className="p-6">
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex justify-between items-center mb-4 bg-white rounded-lg p-4">
                 <h1 className="text-2xl font-bold">Manage Competition: {competition.CompetitionName}</h1>
                 {!isEditing && (
                     <button
                         onClick={handleEditClick}
-                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                        className="bg-blue-500 text-white ml-4 px-4 py-2 rounded hover:bg-blue-600"
                     >
                         Edit Competition
                     </button>
                 )}
+
             </div>
-            <p className="mb-4">Welcome, {user?.Email}</p>
+
             
             <div className="space-y-8">
                 {isEditing ? (
@@ -282,7 +283,7 @@ const CompetitionManagement = () => {
                     <h2 className="text-xl font-bold mb-4">Teams</h2>
                     
                     {/* Add New Team Form */}
-                    <div className="mb-8 p-4 border rounded-lg">
+                    <div className="mb-8 p-4 shadow-md rounded-lg">
                         <h3 className="text-lg font-semibold mb-4">Add New Team</h3>
                         <div className="space-y-4">
                             <div>
