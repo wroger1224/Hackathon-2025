@@ -1,35 +1,23 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { userProfileApi } from '../services/Firebase/apiService';
 
 // Async thunks
 export const fetchUserProfile = createAsyncThunk(
 	'userProfile/fetchUserProfile',
-	async (uid, { rejectWithValue }) => {
+	async (userId, { rejectWithValue }) => {
 		try {
-			// Simulate API delay
-			await new Promise(resolve => setTimeout(resolve, 1000));
-			return {
-				firstName: 'John',
-				lastName: 'Doe',
-				email: 'john@example.com',
-				age: 30,
-				weight: 180,
-				heightInInches: 70,
-				activityLevel: 'Moderately Active',
-			};
+			return userProfileApi.fetchUserProfile(userId);
 		} catch (error) {
 			return rejectWithValue(error.message);
 		}
 	}
 );
 
-//need to add role
 export const updateUserProfile = createAsyncThunk(
 	'userProfile/updateUserProfile',
-	async (profile, { rejectWithValue }) => {
+	async ({ userId, profile }, { rejectWithValue }) => {
 		try {
-			// Simulate API delay
-			await new Promise(resolve => setTimeout(resolve, 1000));
-			return profile;
+			return userProfileApi.updateUserProfile(userId, profile);
 		} catch (error) {
 			return rejectWithValue(error.message);
 		}
@@ -40,9 +28,7 @@ export const createUserProfile = createAsyncThunk(
 	'userProfile/createUserProfile',
 	async (profile, { rejectWithValue }) => {
 		try {
-			// Simulate API delay
-			await new Promise(resolve => setTimeout(resolve, 1000));
-			return profile;
+			return userProfileApi.createUserProfile(profile);
 		} catch (error) {
 			return rejectWithValue(error.message);
 		}

@@ -26,11 +26,18 @@ import TeamMemberActivity from "../../../components/feature/TeamHistory/Teamhist
 import WorkoutLog from "../../../components/feature/WorkoutLog/WorkoutLog";
 import Ballpit from "../../../components/feature/FunStuff/Ballpit";
 
+import { useEffect } from "react";
+import { communityApi } from "../../../services/Firebase/apiService";
+
 const Home = () => {
   const { user } = useSelector((state) => state.user);
   console.log(user);
   const { profile } = useSelector((state) => state.userProfile);
   console.log(profile);
+
+  useEffect(() => {
+    communityApi.fetchCommunityData();
+  }, []);
 
   return (
     <main id="home-main">

@@ -21,17 +21,15 @@ CREATE TABLE Permissions (
 CREATE TABLE Team (
     TeamID INTEGER PRIMARY KEY,
     TeamName TEXT NOT NULL,
-    TeamCaptainID INTEGER NOT NULL,
+    TeamCaptain TEXT NOT NULL,
     CompetitionID INTEGER,
     Points INTEGER DEFAULT 0,
-    Rank INTEGER,
-    FOREIGN KEY (TeamCaptainID) REFERENCES User(UserID) ON DELETE CASCADE,
     FOREIGN KEY (CompetitionID) REFERENCES Competitions(CompetitionID) ON DELETE SET NULL
 );
 
 -- Create User Table
 CREATE TABLE User (
-    UserID INTEGER PRIMARY KEY,
+    UserID TEXT PRIMARY KEY,
     FirstName TEXT NOT NULL,
     LastName TEXT NOT NULL,
     Email TEXT NOT NULL UNIQUE,
@@ -42,8 +40,10 @@ CREATE TABLE User (
     HeightInInches REAL,
     CurrentTeamID INTEGER,
     RoleID INTEGER,
+    TeamID INTEGER,
     FOREIGN KEY (CurrentTeamID) REFERENCES Team(TeamID) ON DELETE SET NULL,
-    FOREIGN KEY (RoleID) REFERENCES Roles(RoleID) ON DELETE SET NULL
+    FOREIGN KEY (RoleID) REFERENCES Roles(RoleID) ON DELETE SET NULL,
+    FOREIGN KEY (TeamID) REFERENCES Team(TeamID) ON DELETE SET NULL
 );
 
 -- Create Competitions Table
@@ -52,6 +52,9 @@ CREATE TABLE Competitions (
     CompetitionName TEXT NOT NULL,
     StartDate DATE NOT NULL,
     EndDate DATE NOT NULL,
+    WeeklyTheme TEXT,
+    EmailParticipants BOOLEAN NOT NULL DEFAULT 0,
+    PostToSlack BOOLEAN NOT NULL DEFAULT 0,
     Status TEXT CHECK (Status IN ('Upcoming', 'Active', 'Completed')) DEFAULT 'Upcoming',
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -94,7 +97,7 @@ CREATE TABLE UserActivity (
 
 -- Add indexes for performance
 CREATE INDEX idx_team_competition ON Team(CompetitionID);
-CREATE INDEX idx_team_captain ON Team(TeamCaptainID);
+CREATE INDEX idx_team_captain ON Team(TeamCaptain);
 CREATE INDEX idx_user_team ON User(CurrentTeamID);
 CREATE INDEX idx_user_role ON User(RoleID);
 CREATE INDEX idx_milestones_competition ON Milestones(CompetitionID);
@@ -114,4 +117,4 @@ CREATE INDEX idx_competitions_status ON Competitions(Status);
 CREATE INDEX idx_competitions_dates ON Competitions(StartDate, EndDate);
 CREATE INDEX idx_user_activity_totals ON UserActivity(TotalTime, TotalPoints);
 CREATE INDEX idx_milestones_threshold ON Milestones(TimeThreshold);
-CREATE INDEX idx_user_opt_in ON User(OptInForMessages) WHERE OptInForMessages = 1; 
+CREATE INDEX idx_user_opt_in ON User(OptInForMessages) WHERE OptInForMessages = 1;

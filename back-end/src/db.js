@@ -3,25 +3,23 @@ const path = require('path');
 const fs = require('fs');
 
 const createDatabase = () => {
+    const dbPath = path.join(__dirname, '../database/app.db');
+    const schemaPath = path.join(__dirname, '../database/schema.sql');
+    
+    // Check if database exists
+    const dbExists = fs.existsSync(dbPath);
+    
     // Create database connection
-    const db = new Database(path.join(__dirname, '../database/app.db'));
+    const db = new Database(dbPath);
 
     // Enable foreign keys
     db.pragma('foreign_keys = ON');
 
-    // Check if any table exists
-    const checkTables = db.prepare(`
-        SELECT name FROM sqlite_master 
-        WHERE type='table' AND name IN (
-            'Roles', 'Permissions', 'Team', 'User', 
-            'Competitions', 'Milestones', 'UserMilestones', 'UserActivity'
-        )
-    `).all();
-
-    // If no tables exist, create all tables and indices
-    if (checkTables.length === 0) {
-        const schema = fs.readFileSync(path.join(__dirname, '../database/schema.sql'), 'utf8');
+    // If database didn't exist, run schema
+    if (!dbExists) {
+        const schema = fs.readFileSync(schemaPath, 'utf8');
         db.exec(schema);
+        console.log('Database initialized with schema');
     }
 
     return db;
