@@ -57,7 +57,7 @@ function TeamLeaderboard() {
 										{TeamName}
 									</h4>
 									<span className="text-xs font-medium text-black">
-										{ Points } Points
+										{ totalTeamPoints } Points
 									</span>
 								</div>
 								<p className="text-xs text-black truncate">

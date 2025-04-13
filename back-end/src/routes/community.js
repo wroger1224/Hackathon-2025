@@ -46,7 +46,19 @@ router.get('/', authMiddleware, async (req, res) => {
                 ua.TotalPoints,
                 ua.UserInput as lastActivity,
                 ua.LastUpdated as lastActivityDate,
-                GROUP_CONCAT(DISTINCT m.MilestoneName) as completedMilestones
+                GROUP_CONCAT(DISTINCT m.MilestoneName) as completedMilestones,
+                (
+                    SELECT json_group_array(json_object(
+                        'userActivityID', ua2.UserActivityID,
+                        'competitionID', ua2.CompetitionID,
+                        'userInput', ua2.UserInput,
+                        'totalTime', ua2.TotalTime,
+                        'totalPoints', ua2.TotalPoints,
+                        'lastUpdated', ua2.LastUpdated
+                    ))
+                    FROM UserActivity ua2
+                    WHERE ua2.UserID = u.UserID
+                ) as allActivities
             FROM User u
             LEFT JOIN UserActivity ua ON u.UserID = ua.UserID AND ua.CompetitionID = ?
             LEFT JOIN UserMilestones um ON u.UserID = um.UserID

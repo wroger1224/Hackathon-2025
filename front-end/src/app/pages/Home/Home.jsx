@@ -26,7 +26,8 @@ import TeamMemberActivity from "../../../components/feature/TeamHistory/Teamhist
 import WorkoutLog from "../../../components/feature/WorkoutLog/WorkoutLog";
 import Ballpit from "../../../components/feature/FunStuff/Ballpit";
 import { fetchCommunityData } from "../../../reducers/communitySlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Modal from 'react-modal';
 
 const Home = () => {
 	const dispatch = useDispatch();
@@ -35,6 +36,29 @@ const Home = () => {
 	const { profile } = useSelector((state) => state.userProfile);
 	console.log(profile);
 
+	const [successMessage, setSuccessMessage] = useState(null);
+	const [modalIsOpen, setModalIsOpen] = useState(false);
+    
+	function openModal() {
+		setModalIsOpen(true);
+	}
+
+	function closeModal() {
+		setModalIsOpen(false);
+	}
+
+	useEffect(() => {
+		if (successMessage) {
+			setTimeout(() => {
+				openModal();
+			}, 1000);
+
+			setTimeout(() => {
+				closeModal();
+				setSuccessMessage(null);
+			}, 4000);
+		}
+	}, [successMessage]);
 
   useEffect(() => {
     dispatch(fetchCommunityData());
@@ -60,7 +84,7 @@ const Home = () => {
 
             <Widget className="lg:col-span-2">
               <h2 className="text-xl font-semibold mb-4">Workout Log</h2>
-              <WorkoutLog />
+              <WorkoutLog setSuccessMessage={setSuccessMessage}/>
             </Widget>
 
             <Widget className="md:col-span-3">
@@ -76,8 +100,17 @@ const Home = () => {
               <h2 className="text-xl font-semibold mb-4">Badges</h2>
               <p>Content goes here</p>
             </Widget>
-          </div>
+						<Modal
+							isOpen={modalIsOpen}
+							onRequestClose={closeModal}
+							contentLabel="Example Modal"
+						>
+							<h2>Modal Title</h2>
+							<button onClick={closeModal}>Close</button>
+							<div>{ successMessage }</div>
+          	</Modal>
         </div>
+			</div>
       </main>
 
       {/* Ballpit overlay */}
