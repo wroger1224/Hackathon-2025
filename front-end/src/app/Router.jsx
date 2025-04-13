@@ -27,7 +27,7 @@ const router = createBrowserRouter([
 					{
 						path: "/admin/:competitionId",
 						element: <CompetitionManagement />
-					}
+					},
 				]
 			},
 		]
