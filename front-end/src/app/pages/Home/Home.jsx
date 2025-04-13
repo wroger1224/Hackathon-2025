@@ -25,15 +25,16 @@ import TeamLeaderboard from "../../../components/feature/TeamLeaderboard/Teamlea
 import TeamMemberActivity from "../../../components/feature/TeamHistory/Teamhistory";
 import WorkoutLog from "../../../components/feature/WorkoutLog/WorkoutLog";
 import Ballpit from "../../../components/feature/FunStuff/Ballpit";
-
-import { useEffect } from "react";
 import { fetchCommunityData } from "../../../reducers/communitySlice";
+import { useEffect } from "react";
+
 const Home = () => {
-  const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
-  console.log(user);
-  const { profile } = useSelector((state) => state.userProfile);
-  console.log(profile);
+	const dispatch = useDispatch();
+	const { user } = useSelector((state) => state.user);
+	console.log(user);
+	const { profile } = useSelector((state) => state.userProfile);
+	console.log(profile);
+
 
   useEffect(() => {
     dispatch(fetchCommunityData());
