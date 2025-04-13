@@ -208,21 +208,72 @@ router.post('/user-activity', authMiddleware, async (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
+        // If competitionId not provided, get the active competition
+        let activeCompetitionId = competitionId;
+        if (!activeCompetitionId) {
+            const activeCompetition = req.app.db.prepare(`
+                SELECT CompetitionID 
+                FROM Competitions 
+                WHERE Status = 'Active'
+                LIMIT 1
+            `).get();
+            
+            if (!activeCompetition) {
+                return res.status(400).json({ error: 'No active competition found' });
+            }
+            activeCompetitionId = activeCompetition.CompetitionID;
+        }
+
         // Get activity analysis from LLM service
         const activityAnalysis = await llmService.getActivityAnalysis(userInput, userProfile);
 
         const result = req.app.db.prepare(`
             INSERT INTO UserActivity (UserID, CompetitionID, UserInput, TotalTime, TotalPoints)
             VALUES (?, ?, ?, ?, ?)
-        `).run(userId, competitionId, userInput, activityAnalysis.time, activityAnalysis.points);
+        `).run(userId, activeCompetitionId, userInput, activityAnalysis.time, activityAnalysis.points);
+
+        // Return the user object (like in the / get route)
+        const user = req.app.db.prepare(`
+            SELECT 
+                u.*, 
+                t.TeamName, 
+                r.RoleName,
+                ua.TotalTime,
+                ua.TotalPoints,
+                ua.UserInput as lastActivity,
+                ua.LastUpdated as lastActivityDate,
+                GROUP_CONCAT(DISTINCT m.MilestoneName) as completedMilestones,
+                (
+                    SELECT json_group_array(json_object(
+                        'userActivityID', ua2.UserActivityID,
+                        'competitionID', ua2.CompetitionID,
+                        'userInput', ua2.UserInput,
+                        'totalTime', ua2.TotalTime,
+                        'totalPoints', ua2.TotalPoints,
+                        'lastUpdated', ua2.LastUpdated
+                    ))
+                    FROM UserActivity ua2
+                    WHERE ua2.UserID = u.UserID
+                    ORDER BY ua2.LastUpdated DESC
+                ) as allActivities
+            FROM User u
+            LEFT JOIN Team t ON u.TeamID = t.TeamID
+            LEFT JOIN Roles r ON u.RoleID = r.RoleID
+            LEFT JOIN UserActivity ua ON u.UserID = ua.UserID
+            LEFT JOIN UserMilestones um ON u.UserID = um.UserID
+            LEFT JOIN Milestones m ON um.MilestoneID = m.MilestoneID
+            WHERE u.UserID = ?
+            GROUP BY u.UserID
+        `).get(userId);
+        
+        if (!user) {
+            console.log('User not found');
+            return res.status(404).json({ error: 'User not found' });
+        }
 
         res.status(201).json({
-            id: result.lastInsertRowid,
-            userId,
-            competitionId,
-            userInput,
-            totalTime: activityAnalysis.time,
-            totalPoints: activityAnalysis.points,
+            userData: user,
+            points: activityAnalysis.points,
             motivationalResponse: activityAnalysis.motivationalResponse
         });
     } catch (error) {
@@ -232,31 +283,94 @@ router.post('/user-activity', authMiddleware, async (req, res) => {
 });
 
 router.put('/user-activity/:activityId', authMiddleware, async (req, res) => {
+
+
+    console.log(req.body);
+    console.log(req.params);
+    console.log('hreer');
     try {
         const { activityId } = req.params;
-        const { competitionId, userInput, totalTime } = req.body;
+        const { competitionId, userInput } = req.body;
         const userId = req.user.uid;
 
-        // Calculate points based on time (1 point per 5 minutes)
-        const totalPoints = Math.floor(totalTime / 5);
+        // Get user profile for activity analysis
+        const userProfile = req.app.db.prepare(`
+            SELECT age, weight, activityLevel 
+            FROM User 
+            WHERE UserID = ?
+        `).get(userId);
+
+        if (!userProfile) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // If competitionId not provided, get the active competition
+        let activeCompetitionId = competitionId;
+        if (!activeCompetitionId) {
+            const activeCompetition = req.app.db.prepare(`
+                SELECT CompetitionID 
+                FROM Competitions 
+                WHERE Status = 'Active'
+                LIMIT 1
+            `).get();
+            
+            if (!activeCompetition) {
+                return res.status(400).json({ error: 'No active competition found' });
+            }
+            activeCompetitionId = activeCompetition.CompetitionID;
+        }
+
+        // Get activity analysis from LLM service
+        const activityAnalysis = await llmService.getActivityAnalysis(userInput, userProfile);
 
         const result = req.app.db.prepare(`
             UPDATE UserActivity 
             SET CompetitionID = ?, UserInput = ?, TotalTime = ?, TotalPoints = ?
             WHERE UserActivityID = ? AND UserID = ?
-        `).run(competitionId, userInput, totalTime, totalPoints, activityId, userId);
+        `).run(activeCompetitionId, userInput, activityAnalysis.time, activityAnalysis.points, activityId, userId);
 
         if (result.changes === 0) {
             return res.status(404).json({ error: 'User activity not found' });
         }
 
+        // Return the user object (like in the / get route)
+        const user = req.app.db.prepare(`
+            SELECT 
+                u.*, 
+                t.TeamName, 
+                r.RoleName,
+                ua.TotalTime,
+                ua.TotalPoints,
+                ua.UserInput as lastActivity,
+                ua.LastUpdated as lastActivityDate,
+                GROUP_CONCAT(DISTINCT m.MilestoneName) as completedMilestones,
+                (
+                    SELECT json_group_array(json_object(
+                        'userActivityID', ua2.UserActivityID,
+                        'competitionID', ua2.CompetitionID,
+                        'userInput', ua2.UserInput,
+                        'totalTime', ua2.TotalTime,
+                        'totalPoints', ua2.TotalPoints,
+                        'lastUpdated', ua2.LastUpdated
+                    ))
+                    FROM UserActivity ua2
+                    WHERE ua2.UserID = u.UserID
+                    ORDER BY ua2.LastUpdated DESC
+                ) as allActivities
+            FROM User u
+            LEFT JOIN Team t ON u.TeamID = t.TeamID
+            LEFT JOIN Roles r ON u.RoleID = r.RoleID
+            LEFT JOIN UserActivity ua ON u.UserID = ua.UserID
+            LEFT JOIN UserMilestones um ON u.UserID = um.UserID
+            LEFT JOIN Milestones m ON um.MilestoneID = m.MilestoneID
+            WHERE u.UserID = ?
+            GROUP BY u.UserID
+        `).get(userId);
+
         res.json({
-            id: activityId,
-            userId,
-            competitionId,
-            userInput,
-            totalTime,
-            totalPoints
+            userData: user,
+            points: activityAnalysis.points,
+            motivationalResponse: activityAnalysis.motivationalResponse
         });
     } catch (error) {
         console.error('Error updating user activity:', error);
@@ -300,7 +414,7 @@ router.get('/user-activity', authMiddleware, async (req, res) => {
         console.error('Error fetching user activities:', error);
         res.status(500).json({ error: 'Failed to fetch user activities' });
     }
-});
+});    
 
 // Get logged-in user's data
 router.get('/', authMiddleware, async (req, res) => {

@@ -20,6 +20,7 @@ const Admin = () => {
     notifyParticipants: false,
     postToSlack: false,
     status: "Upcoming",
+    numberOfMilestones: 4,
   });
 
   useEffect(() => {
@@ -35,6 +36,7 @@ const Admin = () => {
       emailParticipants: newCompetition.notifyParticipants,
       postToSlack: newCompetition.postToSlack,
       status: newCompetition.status,
+      numberOfMilestones: newCompetition.numberOfMilestones,
     };
     dispatch(createCompetition(competition));
     setNewCompetition({
@@ -44,6 +46,7 @@ const Admin = () => {
       notifyParticipants: false,
       postToSlack: false,
       status: "Upcoming",
+      numberOfMilestones: 4,
     });
   };
 
@@ -53,13 +56,13 @@ const Admin = () => {
       id: 1,
       name: "John Doe",
       points: 1250,
-      milestones: ["5 Day Streak", "10k Steps", "Early Bird"],
+      milestones: ["250 Moints", "500 Moints", "750 Moints", "1000 Moints"],
     },
     {
       id: 2,
       name: "Jane Smith",
       points: 980,
-      milestones: ["Weekend Warrior", "Team Player"],
+      milestones: ["250 Moints", "500 Moints", "750 Moints"],
     },
     // Add more users as needed
   ];
@@ -144,6 +147,27 @@ const Admin = () => {
               </select>
             </div>
             <div className="flex items-center gap-2">
+              <label htmlFor="milestones">Number of Milestones:</label>
+              <select
+                id="milestones"
+                value={newCompetition.numberOfMilestones}
+                onChange={(e) =>
+                  setNewCompetition({
+                    ...newCompetition,
+                    numberOfMilestones: parseInt(e.target.value),
+                  })
+                }
+                className="bg-gray-100 rounded-md p-2"
+              >
+                <option value="1">1 milestone</option>
+                <option value="2">2 milestones</option>
+                <option value="3">3 milestones</option>
+                <option value="4">4 milestones</option>
+                <option value="5">5 milestones</option>
+                <option value="6">6 milestones</option>
+              </select>
+            </div>
+            <div className="flex items-center gap-2">
               <input
                 type="checkbox"
                 id="notifyParticipants"
@@ -177,6 +201,7 @@ const Admin = () => {
                 Post challenge updates to Slack channel
               </label>
             </div>
+
 
             <button
               onClick={handleCreateCompetition}
@@ -232,7 +257,10 @@ const Admin = () => {
           </div>
           <div className="space-y-4 max-h-[400px] overflow-y-auto">
             {userStats.map((user) => (
-              <div key={user.id} className="p-3 shadow-md bg-gray-50 rounded-lg">
+              <div
+                key={user.id}
+                className="p-3 shadow-md bg-gray-50 rounded-lg"
+              >
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-semibold">{user.name}</h3>
                   <span className="text-orange font-bold">
@@ -254,7 +282,6 @@ const Admin = () => {
             ))}
           </div>
         </Widget>
-        
       </div>
     </div>
   );

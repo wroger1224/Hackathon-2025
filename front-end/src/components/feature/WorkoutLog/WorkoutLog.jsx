@@ -1,121 +1,98 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createUserActivityThunk, updateUserActivityThunk, deleteUserActivityThunk } from "../../../reducers/userSlice";
 
 const WorkoutLog = ({
 	setSuccessMessage
 }) => {
-  const [logs, setLogs] = useState([]);
+  const dispatch = useDispatch();
+  const userData = useSelector(state => state.user.userData);
   const [editingId, setEditingId] = useState(null);
+  const [editingText, setEditingText] = useState("");
   const [formData, setFormData] = useState({
-    date: new Date().toISOString().split("T")[0],
-    activity: "",
-    duration: "",
-    intensity: "medium",
-    notes: "",
+    userInput: "",
   });
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    // The activities will be loaded from userData.allActivities
+  }, [userData]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editingId !== null) {
-      // Update existing log
-      setLogs(
-        logs.map((log) =>
-          log.id === editingId ? { ...formData, id: editingId } : log
-        )
-      );
-      setEditingId(null);
-    } else {
-      // Add new log
-      setLogs([...logs, { ...formData, id: Date.now() }]);
-			setSuccessMessage("Yay! You've logged a workout!");
+    try {
+      if (editingId !== null) {
+        // Update existing activity
+        await dispatch(updateUserActivityThunk({
+          id: editingId,
+          userActivity: {
+            userInput: formData.userInput
+          }
+        })).unwrap();
+        setEditingId(null);
+        setSuccessMessage("Workout updated successfully!");
+      } else {
+        // Add new activity
+        await dispatch(createUserActivityThunk({
+          userInput: formData.userInput
+        })).unwrap();
+        setSuccessMessage("Yay! You've logged a workout!");
+      }
+      // Reset form
+      setFormData({
+        userInput: "",
+      });
+    } catch (error) {
+      console.error("Error saving activity:", error);
     }
-    // Reset form
-    setFormData({
-      date: new Date().toISOString().split("T")[0],
-      activity: "",
-      duration: "",
-      intensity: "medium",
-      notes: "",
-    });
   };
 
-  const handleEdit = (log) => {
-    setEditingId(log.id);
-    setFormData(log);
+  const handleEdit = (activity) => {
+    setEditingId(activity.userActivityID);
+    setEditingText(activity.userInput);
   };
 
-  const handleDelete = (id) => {
-    setLogs(logs.filter((log) => log.id !== id));
+  const handleUpdate = async (activity) => {
+    try {
+      await dispatch(updateUserActivityThunk({
+        id: activity.userActivityID,
+        userActivity: {
+          userInput: editingText
+        }
+      })).unwrap();
+      setEditingId(null);
+      setSuccessMessage("Workout updated successfully!");
+    } catch (error) {
+      console.error("Error updating activity:", error);
+    }
+  };
+
+  const handleCancel = () => {
+    setEditingId(null);
+    setEditingText("");
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await dispatch(deleteUserActivityThunk(id)).unwrap();
+      setSuccessMessage("Workout deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting activity:", error);
+    }
   };
 
   return (
     <div className="p-4">
       <form onSubmit={handleSubmit} className="space-y-4 mb-8">
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">Date</label>
-            <input
-              type="date"
-              value={formData.date}
-              onChange={(e) =>
-                setFormData({ ...formData, date: e.target.value })
-              }
-              className="w-full p-2 border rounded"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Activity</label>
-            <input
-              type="text"
-              value={formData.activity}
-              onChange={(e) =>
-                setFormData({ ...formData, activity: e.target.value })
-              }
-              className="w-full p-2 border rounded"
-              placeholder="e.g., Running, Weightlifting"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">
-              Duration (minutes)
-            </label>
-            <input
-              type="number"
-              value={formData.duration}
-              onChange={(e) =>
-                setFormData({ ...formData, duration: e.target.value })
-              }
-              className="w-full p-2 border rounded"
-              min="1"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Intensity</label>
-            <select
-              value={formData.intensity}
-              onChange={(e) =>
-                setFormData({ ...formData, intensity: e.target.value })
-              }
-              className="w-full p-2 border rounded"
-            >
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-            </select>
-          </div>
-        </div> */}
         <div>
-          <label className="block text-sm font-medium mb-1">Notes</label>
+          <label className="block text-sm font-medium mb-1">Log Your Daily Activity!</label>
           <textarea
-            value={formData.notes}
+            value={formData.userInput}
             onChange={(e) =>
-              setFormData({ ...formData, notes: e.target.value })
+              setFormData({ ...formData, userInput: e.target.value })
             }
             className="w-full p-2 border rounded"
             rows="3"
-            placeholder="Any additional notes..."
+            placeholder="Enter activities for the day..."
           />
         </div>
         <button
@@ -128,39 +105,59 @@ const WorkoutLog = ({
 
       <div className="space-y-4">
         <h3 className="text-xl font-semibold">Previous Workouts</h3>
-        {logs.length === 0 ? (
+        {(!userData?.allActivities || userData.allActivities.length === 0) ? (
           <p className="text-gray-500">No workouts logged yet</p>
         ) : (
-          logs.map((log) => (
-            <div key={log.id} className="bg-white p-4 rounded-lg shadow">
+          JSON.parse(userData.allActivities).map((activity) => (
+            <div key={activity.userActivityID} className="bg-white p-4 rounded-lg shadow">
               <div className="flex justify-between items-start">
-                <div>
-                  <h4 className="font-semibold">{log.activity}</h4>
+                <div className="flex-1">
                   <p className="text-sm text-gray-600">
-                    {new Date(log.date).toLocaleDateString()} • {log.duration}{" "}
-                    minutes •
-                    {log.intensity.charAt(0).toUpperCase() +
-                      log.intensity.slice(1)}{" "}
-                    intensity
+                    {new Date(activity.lastUpdated).toLocaleDateString()} • {activity.totalTime} minutes
                   </p>
-                  {log.notes && (
-                    <p className="mt-2 text-gray-700">{log.notes}</p>
+                  {editingId === activity.userActivityID ? (
+                    <div className="mt-2 space-y-2">
+                      <textarea
+                        value={editingText}
+                        onChange={(e) => setEditingText(e.target.value)}
+                        className="w-full p-2 border rounded"
+                        rows="3"
+                      />
+                      <div className="flex space-x-2">
+                        <button
+                          onClick={() => handleUpdate(activity)}
+                          className="bg-blue text-white px-3 py-1 rounded hover:bg-opacity-90"
+                        >
+                          Update
+                        </button>
+                        <button
+                          onClick={handleCancel}
+                          className="bg-gray-300 text-gray-700 px-3 py-1 rounded hover:bg-opacity-90"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="mt-2 text-gray-700">{activity.userInput}</p>
                   )}
                 </div>
-                <div className="space-x-2">
-                  <button
-                    onClick={() => handleEdit(log)}
-                    className="text-blue hover:text-opacity-80"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(log.id)}
-                    className="text-red-orange hover:text-opacity-80"
-                  >
-                    Delete
-                  </button>
-                </div>
+                {editingId !== activity.userActivityID && (
+                  <div className="space-x-2">
+                    <button
+                      onClick={() => handleEdit(activity)}
+                      className="text-blue hover:text-opacity-80"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(activity.userActivityID)}
+                      className="text-red-orange hover:text-opacity-80"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           ))

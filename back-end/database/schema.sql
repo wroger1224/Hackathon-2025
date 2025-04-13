@@ -91,8 +91,7 @@ CREATE TABLE UserActivity (
     TotalPoints INTEGER NOT NULL DEFAULT 0,
     LastUpdated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE,
-    FOREIGN KEY (CompetitionID) REFERENCES Competitions(CompetitionID) ON DELETE CASCADE,
-    UNIQUE (UserID, CompetitionID)
+    FOREIGN KEY (CompetitionID) REFERENCES Competitions(CompetitionID) ON DELETE CASCADE
 );
 
 -- Add indexes for performance

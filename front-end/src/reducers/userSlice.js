@@ -8,6 +8,8 @@ const initialState = {
 		signUpError: null,
     userData: null,
     userDataError: null,
+    points: 0,
+    motivationalResponse: null,
 }
 
 // User Activity Thunks
@@ -75,14 +77,19 @@ const userSlice = createSlice({
 				state.signUpError = action.payload
 				state.loading = false
 			},
-			addUserActivity: (state, action) => {
-				state.userActivities.push(action.payload)
+            addUserActivity: (state, action) => {
+                // the response contains {userData, points, motivationalResponse}
+                console.log(action.payload);
+                state.userData = action.payload.userData;
+                state.points = action.payload.points;
+                state.motivationalResponse = action.payload.motivationalResponse;
 			},
 			updateUserActivity: (state, action) => {
-				const index = state.userActivities.findIndex(activity => activity.id === action.payload.id)
-				if (index !== -1) {
-					state.userActivities[index] = action.payload
-				}
+                // the response contains {userData, points, motivationalResponse}
+                console.log(action.payload);
+                state.userData = action.payload.userData;
+                state.points = action.payload.points;
+                state.motivationalResponse = action.payload.motivationalResponse;
 			},
 			deleteUserActivity: (state, action) => {
 				state.userActivities = state.userActivities.filter(activity => activity.id !== action.payload)
@@ -103,24 +110,33 @@ const userSlice = createSlice({
         builder
             // Create User Activity
             .addCase(createUserActivityThunk.fulfilled, (state, action) => {
-                state.userActivities.push(action.payload);
+                
+                console.log(action.payload);
+                state.userData = action.payload.userData;
+                state.points = action.payload.points;
+                state.motivationalResponse = action.payload.motivationalResponse;
             })
             .addCase(createUserActivityThunk.rejected, (state, action) => {
                 state.userActivityError = action.payload;
             })
             // Update User Activity
             .addCase(updateUserActivityThunk.fulfilled, (state, action) => {
-                const index = state.userActivities.findIndex(activity => activity.id === action.payload.id);
-                if (index !== -1) {
-                    state.userActivities[index] = action.payload;
-                }
+                // the response contains {userData, points, motivationalResponse}
+                console.log(action.payload);
+                state.userData = action.payload.userData;
+                state.points = action.payload.points;
+                state.motivationalResponse = action.payload.motivationalResponse;
             })
             .addCase(updateUserActivityThunk.rejected, (state, action) => {
                 state.userActivityError = action.payload;
             })
             // Delete User Activity
             .addCase(deleteUserActivityThunk.fulfilled, (state, action) => {
-                state.userActivities = state.userActivities.filter(activity => activity.id !== action.payload);
+                if (state.userData && state.userData.allActivities) {
+                    const activities = JSON.parse(state.userData.allActivities);
+                    const updatedActivities = activities.filter(activity => activity.userActivityID !== action.payload);
+                    state.userData.allActivities = JSON.stringify(updatedActivities);
+                }
             })
             .addCase(deleteUserActivityThunk.rejected, (state, action) => {
                 state.userActivityError = action.payload;

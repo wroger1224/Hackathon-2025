@@ -13,7 +13,7 @@ function TeamLeaderboard() {
 	const displayedTeams = showAllTeams ? sortedTeam : sortedTeam.slice(0, 3);
 
   return (
-    <div className="bg-white rounded-3xl p-6 shadow-sm">
+    <div className="rounded-3xl p-6 shadow-sm bg-white/90 backdrop-blur-sm shadow-lg hover:bg-white/95 transition-all">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-lg font-bold text-black">Team Leaderboard</h2>
       </div>

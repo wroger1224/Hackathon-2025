@@ -31,8 +31,7 @@ function Navbar({ onSignOut }) {
   const navLinks = [
     { path: "/", icon: Home, text: "Home" },
     { path: "/admin", icon: BarChart2, text: "Admin" },
-    { path: "/team", icon: Users, text: "Team" },
-    { path: "/profile", icon: Settings, text: "Profile" },
+    { path: "/user-profile", icon: Settings, text: "Profile" },
   ];
 
   return (
