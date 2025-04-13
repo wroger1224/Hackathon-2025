@@ -13,7 +13,7 @@ $ npm run dev
 ```
 
 ```
-/front-end/config/firebaseconfig.js
+/front-end/src/config/firebaseconfig.js
 <Add SDKs for Firebase products that you want to use>
 - https://firebase.google.com/docs/web/setup#available-libraries
 <Your web app's Firebase configuration>
