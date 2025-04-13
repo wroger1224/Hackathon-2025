@@ -20,7 +20,7 @@ function TrackingHistory() {
   const roundedMaxPoints = Math.ceil(maxPoints / 10) * 10; // Round up to nearest 10
 
   return (
-    <div className="flex-1 bg-white rounded-3xl shadow-sm p-6 w-full">
+    <div className="flex-1 bg-white rounded-3xl shadow-sm p-6 w-full bg-white/90 backdrop-blur-sm shadow-lg hover:bg-white/95 transition-all">
       <div className="flex justify-between items-start mb-6">
         <div>
           <h2 className="text-lg font-bold text-gray-800">Activity Tracking</h2>

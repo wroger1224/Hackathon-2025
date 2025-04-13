@@ -70,21 +70,23 @@ const Home = () => {
     <div className="relative w-full">
       <main id="home-main" className="min-h-screen">
         <div className="pb-[400px]">
-          <div id="home-container">
-            <h1>Welcome {profile.name} to Maxxtivity</h1>
+          <div id="home-container" className="relative z-10">
+            <h1 className="text-2xl font-bold text-gray-800 bg-white/95 inline-block px-4 py-2 rounded-lg">
+              Welcome {profile.name} to Maxxtivity
+            </h1>
             <h2></h2>
-            <p>
+            <p className="text-gray-600 bg-white/95 inline-block px-4 py-2 rounded-lg mt-2">
               Here you can see your progress and your current level. You can
               also see your current competition and your progress in it.
             </p>
           </div>
           <div
             id="home-widgets"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6"
+            className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 "
           >
             <TrackingHistory />
 
-            <Widget className="lg:col-span-2">
+            <Widget className="lg:col-span-2 bg-white/90 backdrop-blur-sm shadow-lg hover:bg-white/95 transition-all">
               <h2 className="text-xl font-semibold mb-4">Workout Log</h2>
               <WorkoutLog setSuccessMessage={setSuccessMessage} />
             </Widget>
@@ -93,8 +95,8 @@ const Home = () => {
 
             <TeamMemberActivity />
 
-            <Widget>
-              <h2 className="text-xl font-semibold mb-4">Badges</h2>
+            <Widget className="bg-white/90 backdrop-blur-sm shadow-lg hover:bg-white/95 transition-all">
+              <h2 className="text-xl font-semibold mb-4 ">Badges</h2>
               <Badges />
             </Widget>
             <Modal
@@ -118,14 +120,14 @@ const Home = () => {
           left: 0,
           right: 0,
           width: "100vw",
-          height: "500px",
-          zIndex: 9999,
+          height: "100vh",
+          zIndex: 0,
           pointerEvents: "none",
           overflow: "hidden",
         }}
       >
         <Ballpit
-          count={100}
+          count={200}
           gravity={0.7}
           friction={0.8}
           wallBounce={0.95}

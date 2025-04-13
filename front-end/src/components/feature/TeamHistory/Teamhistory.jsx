@@ -26,7 +26,7 @@ function TeamMemberActivity() {
 
   
     return (
-      <div className="bg-white rounded-3xl p-6 shadow-sm">
+      <div className="bg-white rounded-3xl p-6 shadow-sm bg-white/90 backdrop-blur-sm shadow-lg hover:bg-white/95 transition-all">
         <div className="flex justify-between items-center mb-6">
           <div>
             <h2 className="text-lg font-bold text-gray-800">Team Activity</h2>
@@ -39,7 +39,7 @@ function TeamMemberActivity() {
         
         <div className="space-y-4">
           {displayedTeam.map((activity, index) => (
-            <div key={index} className="flex gap-3 pb-4 border-b border-gray-100 last:border-0">
+            <div key={index} className="flex gap-3 pb-4 border-b border-gray-100 last:border-0 ">
 
               <div className="flex-1">
                 <div className="flex justify-between">
