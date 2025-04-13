@@ -1,6 +1,8 @@
 import { useState } from "react";
 
-const WorkoutLog = () => {
+const WorkoutLog = ({
+	setSuccessMessage
+}) => {
   const [logs, setLogs] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({
@@ -24,6 +26,7 @@ const WorkoutLog = () => {
     } else {
       // Add new log
       setLogs([...logs, { ...formData, id: Date.now() }]);
+			setSuccessMessage("Yay! You've logged a workout!");
     }
     // Reset form
     setFormData({
