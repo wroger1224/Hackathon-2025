@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import Widget from "../../../components/common/Widget/Widget";
-import TeamActivity from "../../../components/feature/TeamActivity/TeamActivity";
+// import TeamActivity from "../../../components/feature/TeamActivity/TeamActivity";
 import Milestones from "../../../components/feature/Milestones/Milestones";
 import "../../../index.css";
 import {
@@ -24,23 +24,18 @@ import {
 import TrackingHistory from "../../../components/feature/TrackingHistory/Trackinghistory";
 import TeamLeaderboard from "../../../components/feature/TeamLeaderboard/Teamleaderboard";
 import TeamMemberActivity from "../../../components/feature/TeamHistory/Teamhistory";
+import { useEffect } from "react";
+import { communityApi } from "../../../services/Firebase/apiService";
+
 const Home = () => {
-	const dispatch = useDispatch();
-	const { user } = useSelector((state) => state.user);
-	const { profile } = useSelector((state) => state.userProfile);
-	const { competition, teams, users, milestones, status, error } = useSelector((state) => state.community);
+  const { user } = useSelector((state) => state.user);
+  console.log(user);
+  const { profile } = useSelector((state) => state.userProfile);
+  console.log(profile);
 
-	useEffect(() => {
-		dispatch(fetchCommunityData());
-	}, [dispatch]);
-
-	if (status === 'loading') {
-		return <div>Loading community data...</div>;
-	}
-
-	if (status === 'failed') {
-		return <div>Error loading community data: {error}</div>;
-	}
+  useEffect(() => {
+    communityApi.fetchCommunityData();
+  }, []);
 
   return (
     <main id="home-main">
@@ -61,7 +56,7 @@ const Home = () => {
         <TeamMemberActivity />
         <Widget>
           <h3 className="text-xl font-semibold mb-4">Team</h3>
-          <TeamActivity />
+          {/* <TeamActivity /> */}
         </Widget>
 
 
