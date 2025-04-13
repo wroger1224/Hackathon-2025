@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Widget from "../../../components/common/Widget/Widget";
 import Milestones from "../../../components/feature/Milestones/Milestones";
 import "../../../index.css";
@@ -27,16 +27,16 @@ import WorkoutLog from "../../../components/feature/WorkoutLog/WorkoutLog";
 import Ballpit from "../../../components/feature/FunStuff/Ballpit";
 
 import { useEffect } from "react";
-import { communityApi } from "../../../services/Firebase/apiService";
-
+import { fetchCommunityData } from "../../../reducers/communitySlice";
 const Home = () => {
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   console.log(user);
   const { profile } = useSelector((state) => state.userProfile);
   console.log(profile);
 
   useEffect(() => {
-    communityApi.fetchCommunityData();
+    dispatch(fetchCommunityData());
   }, []);
 
   return (
