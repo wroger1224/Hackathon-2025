@@ -26,9 +26,10 @@ import TeamMemberActivity from "../../../components/feature/TeamHistory/Teamhist
 import WorkoutLog from "../../../components/feature/WorkoutLog/WorkoutLog";
 import Ballpit from "../../../components/feature/FunStuff/Ballpit";
 import { fetchCommunityData } from "../../../reducers/communitySlice";
+import { fetchUserDataThunk } from "../../../reducers/userSlice";
 import { useEffect, useState } from "react";
 import Modal from 'react-modal';
-
+import Badges from "../../../components/feature/Badges/Badges";
 const Home = () => {
 	const dispatch = useDispatch();
 	const { user } = useSelector((state) => state.user);
@@ -62,7 +63,8 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(fetchCommunityData());
-  }, []);
+    dispatch(fetchUserDataThunk());
+  }, [dispatch]);
 
   return (
     <div className="relative w-full">
@@ -87,18 +89,13 @@ const Home = () => {
               <WorkoutLog setSuccessMessage={setSuccessMessage}/>
             </Widget>
 
-            <Widget className="md:col-span-3">
-              <h3 className="text-xl font-semibold mb-4"></h3>
-              <Milestones />
-            </Widget>
-
             <TeamLeaderboard />
 
             <TeamMemberActivity />
 
             <Widget>
               <h2 className="text-xl font-semibold mb-4">Badges</h2>
-              <p>Content goes here</p>
+              <Badges />
             </Widget>
 						<Modal
 							isOpen={modalIsOpen}

@@ -121,3 +121,53 @@ export const userProfileApi = {
         return data;
     }
 };
+
+// User Activity API calls
+export const userActivityApi = {
+    createUserActivity: async (userActivity) => {
+        const response = await fetch(`${API_BASE_URL}/user/user-activity`, {
+            method: 'POST',
+            headers: await getHeaders(),
+            body: JSON.stringify(userActivity)
+        });
+        const data = await handleResponse(response);
+        return data;
+    },
+
+    updateUserActivity: async (activityId, userActivity) => {
+        const response = await fetch(`${API_BASE_URL}/user/user-activity/${activityId}`, {
+            method: 'PUT',
+            headers: await getHeaders(),
+            body: JSON.stringify(userActivity)
+        });
+        const data = await handleResponse(response);
+        return data;
+    },
+
+    deleteUserActivity: async (activityId) => {
+        const response = await fetch(`${API_BASE_URL}/user/user-activity/${activityId}`, {
+            method: 'DELETE',
+            headers: await getHeaders()
+        });
+        const data = await handleResponse(response);
+        return data;
+    },
+
+    fetchUserActivities: async () => {
+        const response = await fetch(`${API_BASE_URL}/user/user-activity`, {
+            headers: await getHeaders()
+        });
+        const data = await handleResponse(response);
+        return data;
+    }
+};
+
+export const userApi = {
+    fetchUserData: async () => {
+        const response = await fetch(`${API_BASE_URL}/user`, {
+            headers: await getHeaders()
+        });
+        const data = await handleResponse(response);
+        return data;
+    }
+};

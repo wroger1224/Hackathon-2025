@@ -10,6 +10,7 @@ const openai = new OpenAI({
 // Define the activity analysis schema
 const ActivityAnalysis = z.object({
     time: z.number().int().describe("The total number of minutes the user spent in motion/activity"),
+    points: z.number().int().describe("The total number of points the user earned for their activity. Between 0 and 100 points"),
     motivationalResponse: z.string().describe("A personalized, encouraging message that acknowledges the user's activity and provides positive reinforcement")
 });
 
@@ -26,7 +27,7 @@ class LLMService {
             messages: [
                 {
                     role: "system",
-                    content: "Turn the users input of their daily activity into the number of minutes that they were in motion. Also take their daily activity into account with their personal profile and output, a cover bunny, motivational message to congratulate them on doing the daily activity log"         
+                    content: "Turn the users input of their daily activity into the number of minutes that they were in motion. Additionally, give them points (between 0 and 100) based on the difficulty of the daily activity and their activity level int their profile. For example a sedentary person doing a 30 minute walk would get 30 points, a moderate person doing a 30 minute walk would get 20 points, and a high person doing a 30 minute walk would get 10 points. Finally, return a over funny, motivational message to congratulate them on doing the daily activity log."         
                 },
                 {
                     role: "user",
@@ -35,8 +36,12 @@ class LLMService {
             ],
             response_format: zodResponseFormat(ActivityAnalysis, "activity")
         });
+        const content = completion.choices[0].message.content;
+        // Turn in to json
+        const jsonContent = JSON.parse(content);
         
-        return completion.choices[0].message.content;
+        return jsonContent;
+
     }
 
     async pickWeeklyWinner(users, activities) {
