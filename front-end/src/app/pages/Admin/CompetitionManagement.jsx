@@ -358,7 +358,7 @@ const CompetitionManagement = () => {
                     {/* Teams List */}
                     <div className="space-y-4">
                         {competition.teams?.map(team => (
-                            <div key={team.TeamID} className="border rounded-lg p-4">
+                            <div key={team.TeamID} className="shadow-md rounded-lg p-4">
                                 {editingTeamId === team.TeamID ? (
                                     <div className="space-y-4">
                                         <div>
