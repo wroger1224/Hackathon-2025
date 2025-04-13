@@ -32,16 +32,15 @@ const UserProfile = () => {
                   </h2>
                   <div className="space-y-2">
                     <p className="text-gray-600">
-                      <span className="font-medium">Name:</span>{" "}
-                      {user?.FirstName} {user?.LastName}
+                      <span className="font-medium">Name:</span> Wren Roger
                     </p>
                     <p className="text-gray-600 flex items-center gap-2">
                       <Mail className="h-4 w-4" />
-                      {user?.Email}
+                      wren.roger@maxxpotential.com
                     </p>
                     <p className="text-gray-600">
                       <span className="font-medium">Department:</span>{" "}
-                      {user?.Department || "Not specified"}
+                      {user?.Department || "Apprentice"}
                     </p>
                   </div>
                 </div>
@@ -56,17 +55,15 @@ const UserProfile = () => {
                   </h2>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-blue-50/90 p-4 rounded-lg backdrop-blur-sm">
-                      <p className="text-sm text-gray-600">Total Points</p>
-                      <p className="text-2xl font-bold text-blue-600">
-                        {user?.TotalPoints || 0}
-                      </p>
+                      <p className="text-sm text-gray-600">Total Moints</p>
+                      <p className="text-2xl font-bold text-blue-600">1000</p>
                     </div>
                     <div className="bg-green-50/90 p-4 rounded-lg backdrop-blur-sm">
                       <p className="text-sm text-gray-600">
                         Milestones Reached
                       </p>
                       <p className="text-2xl font-bold text-green-600">
-                        {user?.MilestonesReached || 0}
+                        {user?.MilestonesReached || 4}
                       </p>
                     </div>
                   </div>
@@ -84,19 +81,19 @@ const UserProfile = () => {
                     <div className="flex items-center justify-between p-2 bg-gray-50/90 rounded backdrop-blur-sm">
                       <span className="text-gray-700">Active Days</span>
                       <span className="font-semibold">
-                        {user?.ActiveDays || 0} days
+                        {user?.ActiveDays || 1} days
                       </span>
                     </div>
                     <div className="flex items-center justify-between p-2 bg-gray-50/90 rounded backdrop-blur-sm">
                       <span className="text-gray-700">Competitions Joined</span>
                       <span className="font-semibold">
-                        {user?.CompetitionsJoined || 0}
+                        {user?.CompetitionsJoined || 1}
                       </span>
                     </div>
                     <div className="flex items-center justify-between p-2 bg-gray-50/90 rounded backdrop-blur-sm">
                       <span className="text-gray-700">Current Streak</span>
                       <span className="font-semibold">
-                        {user?.CurrentStreak || 0} days
+                        {user?.CurrentStreak || 1} days
                       </span>
                     </div>
                   </div>
@@ -120,7 +117,7 @@ const UserProfile = () => {
                           <Trophy className="text-orange-500" />
                           <div>
                             <p className="font-medium">
-                              Activity Points Earned
+                              Activity Moints Earned
                             </p>
                             <p className="text-sm text-gray-600">
                               {new Date(
@@ -131,7 +128,7 @@ const UserProfile = () => {
                         </div>
                         <div className="text-right">
                           <p className="font-medium text-orange-600">
-                            +{Math.floor(Math.random() * 40 + 20)} points
+                            +{Math.floor(Math.random() * 40 + 20)} moints
                           </p>
                           <p className="text-sm text-gray-600">
                             {Math.random() > 0.7 ? "🎯 Milestone Reached!" : ""}
