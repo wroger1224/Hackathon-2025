@@ -23,6 +23,8 @@ import {
 import TrackingHistory from "../../../components/feature/TrackingHistory/Trackinghistory";
 import TeamLeaderboard from "../../../components/feature/TeamLeaderboard/Teamleaderboard";
 import TeamMemberActivity from "../../../components/feature/TeamHistory/Teamhistory";
+import WorkoutLog from "../../../components/feature/WorkoutLog/WorkoutLog";
+
 const Home = () => {
   const { user } = useSelector((state) => state.user);
   console.log(user);
@@ -50,7 +52,6 @@ const Home = () => {
           <h3 className="text-xl font-semibold mb-4">Team</h3>
         </Widget>
 
-
         <Widget>
           <h3 className="text-xl font-semibold mb-4">Add Workout</h3>
           <p>Content goes here</p>
@@ -58,12 +59,27 @@ const Home = () => {
 
         <Widget className="md:col-span-2">
           <h3 className="text-xl font-semibold mb-4">Minutes</h3>
-					<Milestones />
+          <Milestones />
         </Widget>
 
         <Widget>
           <h3 className="text-xl font-semibold mb-4">Badges</h3>
           <p>Content goes here</p>
+        </Widget>
+
+        <Widget className="lg:col-span-2">
+          <h3 className="text-xl font-semibold mb-4">Workout Log</h3>
+          <WorkoutLog />
+        </Widget>
+
+        <Widget>
+          <h3 className="text-xl font-semibold mb-4">Stats</h3>
+          <p>Your workout statistics will appear here</p>
+        </Widget>
+
+        <Widget className="md:col-span-2 lg:col-span-3">
+          <h3 className="text-xl font-semibold mb-4">Activity Timeline</h3>
+          <p>Your recent activities will appear here</p>
         </Widget>
       </div>
     </main>
