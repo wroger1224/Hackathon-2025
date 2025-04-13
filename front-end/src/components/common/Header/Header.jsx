@@ -29,6 +29,7 @@ const Header = () => {
           onClick={handleSignOut}
           variant="secondary"
           id="sign-out-button"
+          className="bg-red-orange text-white mr-4 px-4 py-2 rounded-md"
         >
           Sign Out
         </Button>
