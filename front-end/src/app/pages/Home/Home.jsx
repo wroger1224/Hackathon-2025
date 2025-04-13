@@ -32,10 +32,7 @@ import Modal from 'react-modal';
 import Badges from "../../../components/feature/Badges/Badges";
 const Home = () => {
 	const dispatch = useDispatch();
-	const { user } = useSelector((state) => state.user);
-	console.log(user);
 	const { profile } = useSelector((state) => state.userProfile);
-	console.log(profile);
 
 	const [successMessage, setSuccessMessage] = useState(null);
 	const [modalIsOpen, setModalIsOpen] = useState(false);

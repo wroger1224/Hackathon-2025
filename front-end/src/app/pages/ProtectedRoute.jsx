@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 const ProtectedRoute = () => {
 	const {user, loading } = useSelector((state) => state.user);
 	const { profile, isLoading } = useSelector((state) => state.userProfile);
-	console.log(profile);
 	
 	if (loading || isLoading) {
 		return <div className="flex items-center justify-center min-h-screen">
@@ -13,17 +12,13 @@ const ProtectedRoute = () => {
 	}
 
 	if (!user) {
-		console.log('No user, redirecting to /auth');
 		return <Navigate to="/auth" />;
 	}
 
 	if(!profile) {
-		console.log('No profile, redirecting to /create-profile');
 		return <Navigate to="/create-profile" />;
 	}
 
-	// Allow access to protected route
-	console.log('Access granted to protected route');
 	return <Outlet />;
 };
 

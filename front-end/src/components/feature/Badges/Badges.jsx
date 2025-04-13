@@ -6,12 +6,12 @@ const badgeList = {
 	'Bronze Heart': {
 		Name: "Bronze Heart",
 		ID: 1,
-		Image: "https://via.placeholder.com/150",
+		Image: "/assets/250-Moints-Badge-crop.png",
 	},
 	'Silver Heart': {	
 		Name: "Silver Heart",
 		ID: 2,
-		Image: "https://via.placeholder.com/150",
+		Image: "/assets/500-Moints-Badge-crop.png",
 	},
 	'Gold Heart': {
 		Name: "Gold Heart",
@@ -21,7 +21,7 @@ const badgeList = {
 	'Platinum Heart': {
 		Name: "Platinum Heart",
 		ID: 4,
-		Image: "https://via.placeholder.com/150",
+		Image: "/assets/1000-Moints-Badge-crop.png",
 	},
 }
 

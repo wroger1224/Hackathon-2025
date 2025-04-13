@@ -12,11 +12,15 @@ function TeamMemberActivity() {
 	const team = users.filter(user => user.TeamID === TeamID);
 	const teamLength = team?.length;
 	const teamObject = team?.map(user => {
+		const allActivities = JSON.parse(user.allActivities);
+		const sortedActivities = allActivities.sort((a, b) => new Date(b.lastUpdated) - new Date(a.lastUpdated));
 		return {
 			FirstName: user.FirstName,
 			LastName: user.LastName,
 			TeamID: user.TeamID,
-			allActivities: JSON.parse(user.allActivities)
+			allActivities: sortedActivities,
+			totalTime: sortedActivities.reduce((acc, activity) => acc + activity.totalTime, 0),
+			totalPoints: sortedActivities.reduce((acc, activity) => acc + activity.totalPoints, 0)
 		}
 	})
 
@@ -53,11 +57,11 @@ function TeamMemberActivity() {
                 <div className="flex gap-4 mt-2">
                   <div className="flex items-center text-xs text-gray-600">
                     <Award size={12} className="mr-1 text-purple-500" />
-                    <span>{activity.allActivities[0]?.totalPoints} points</span>
+                    <span>{activity.totalPoints} points</span>
                   </div>
                   <div className="flex items-center text-xs text-gray-600">
                     <Hourglass size={12} className="mr-1 text-green-500" />
-                    <span>{activity.allActivities[0]?.totalTime} minutes</span>
+                    <span>{activity.totalTime} minutes</span>
                   </div>
                 </div>
               </div>
@@ -69,7 +73,7 @@ function TeamMemberActivity() {
         className="mt-4 text-sm text-black flex items-center justify-center w-full"
         onClick={() => setShowAllTeams(!showAllTeams)}
       >
-        <span>{showAllTeams ? "Show Less" : "See All Teams"}</span>
+        <span>{showAllTeams ? "Show Less" : "See All Team Members"}</span>
         <ChevronDown 
           size={16} 
           className={`transition-transform duration-200 ${showAllTeams ? 'rotate-180' : ''}`}
