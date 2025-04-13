@@ -53,7 +53,7 @@ try {
         INSERT INTO Competitions (CompetitionID, CompetitionName, StartDate, EndDate, Status)
         VALUES (?, ?, ?, ?, ?)
     `);
-    insertCompetition.run(1, 'MAXX Heart Walk', '2024-06-01', '2024-08-31', 'Upcoming');
+    insertCompetition.run(1, 'MAXX Heart Walk', '2024-04-01', '2024-04-30', 'Active');
 
     // 4. Insert Teams first (before users since users reference teams)
     const insertTeam = db.prepare(`
