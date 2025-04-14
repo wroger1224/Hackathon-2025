@@ -29,3 +29,4 @@ export const getCurrentUserToken = async () => {
 	if (!currentUser) return null;
 	return await currentUser.getIdToken();
 };
+
